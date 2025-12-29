@@ -1,0 +1,74 @@
+{
+  "name": "Part-DB",
+  "id": "partdb",
+  "available": true,
+  "short_desc": "Open Source Electronic Parts Inventory Management",
+  "author": "Part-DB",
+  "port": 8380,
+  "categories": [
+    "data",
+    "utilities"
+  ],
+  "description": "Part-DB is an open-source web-based database for managing electronic components. It provides inventory management, datasheet storage, and part organization for makers, hobbyists, and small businesses.",
+  "tipi_version": 2,
+  "version": "latest",
+  "source": "https://github.com/Part-DB/Part-DB-server",
+  "exposable": true,
+  "supported_architectures": [
+    "arm64",
+    "amd64"
+  ],
+  "created_at": 1735516800000,
+  "updated_at": 1735516800000,
+  "dynamic_config": true,
+  "form_fields": [
+    {
+      "type": "text",
+      "label": "Database User",
+      "hint": "MySQL/MariaDB database username",
+      "required": true,
+      "env_variable": "PARTDB_DB_USER",
+      "default": "partdb"
+    },
+    {
+      "type": "password",
+      "label": "Database Password",
+      "hint": "MySQL/MariaDB database password (change from default!)",
+      "required": true,
+      "env_variable": "PARTDB_DB_PASSWORD",
+      "default": "changeme123"
+    },
+    {
+      "type": "text",
+      "label": "Database Name",
+      "hint": "MySQL/MariaDB database name",
+      "required": true,
+      "env_variable": "PARTDB_DB_NAME",
+      "default": "partdb"
+    },
+    {
+      "type": "text",
+      "label": "Default Language",
+      "hint": "Default language (en, de, ru, fr, etc.)",
+      "required": false,
+      "env_variable": "PARTDB_DEFAULT_LANG",
+      "default": "en"
+    },
+    {
+      "type": "text",
+      "label": "Default Timezone",
+      "hint": "Default timezone (e.g., America/New_York, Europe/Berlin)",
+      "required": false,
+      "env_variable": "PARTDB_DEFAULT_TIMEZONE",
+      "default": "UTC"
+    },
+    {
+      "type": "text",
+      "label": "Base Currency",
+      "hint": "Base currency (USD, EUR, GBP, etc.) - cannot be changed later!",
+      "required": false,
+      "env_variable": "PARTDB_BASE_CURRENCY",
+      "default": "USD"
+    }
+  ]
+}
