@@ -11,9 +11,8 @@
       },
       "volumes": [
         {
-          "type": "bind",
-          "source": "${APP_DATA_DIR}/postgresql",
-          "target": "/var/lib/postgresql/data"
+          "hostPath": "${APP_DATA_DIR}/postgresql",
+          "containerPath": "/var/lib/postgresql/data"
         }
       ],
       "internalPort": "5432"
@@ -52,9 +51,8 @@
       },
       "volumes": [
         {
-          "type": "bind",
-          "source": "${APP_DATA_DIR}/data",
-          "target": "/home/inventree/data"
+          "hostPath": "${APP_DATA_DIR}/data",
+          "containerPath": "/home/inventree/data"
         }
       ],
       "internalPort": "8000"
@@ -80,9 +78,8 @@
       },
       "volumes": [
         {
-          "type": "bind",
-          "source": "${APP_DATA_DIR}/data",
-          "target": "/home/inventree/data"
+          "hostPath": "${APP_DATA_DIR}/data",
+          "containerPath": "/home/inventree/data"
         }
       ]
     }
