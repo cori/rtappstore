@@ -5,10 +5,22 @@
       "name": "inventree-db",
       "image": "postgres:17",
       "environment": [
-        "PGDATA=/var/lib/postgresql/data/pgdb",
-        "POSTGRES_USER=${INVENTREE_DB_USER}",
-        "POSTGRES_PASSWORD=${INVENTREE_DB_PASSWORD}",
-        "POSTGRES_DB=${INVENTREE_DB_NAME}"
+        {
+          "key": "PGDATA",
+          "value": "/var/lib/postgresql/data/pgdb"
+        },
+        {
+          "key": "POSTGRES_USER",
+          "value": "${INVENTREE_DB_USER}"
+        },
+        {
+          "key": "POSTGRES_PASSWORD",
+          "value": "${INVENTREE_DB_PASSWORD}"
+        },
+        {
+          "key": "POSTGRES_DB",
+          "value": "${INVENTREE_DB_NAME}"
+        }
       ],
       "volumes": [
         {
@@ -29,26 +41,86 @@
       "isMain": true,
       "dependsOn": ["inventree-db", "inventree-cache"],
       "environment": [
-        "INVENTREE_DB_ENGINE=postgresql",
-        "INVENTREE_DB_NAME=${INVENTREE_DB_NAME}",
-        "INVENTREE_DB_HOST=inventree-db",
-        "INVENTREE_DB_PORT=5432",
-        "INVENTREE_DB_USER=${INVENTREE_DB_USER}",
-        "INVENTREE_DB_PASSWORD=${INVENTREE_DB_PASSWORD}",
-        "INVENTREE_CACHE_ENABLED=True",
-        "INVENTREE_CACHE_HOST=inventree-cache",
-        "INVENTREE_CACHE_PORT=6379",
-        "INVENTREE_PLUGINS_ENABLED=True",
-        "INVENTREE_AUTO_UPDATE=True",
-        "INVENTREE_LOG_LEVEL=WARNING",
-        "INVENTREE_ADMIN_USER=${INVENTREE_ADMIN_USER}",
-        "INVENTREE_ADMIN_PASSWORD=${INVENTREE_ADMIN_PASSWORD}",
-        "INVENTREE_ADMIN_EMAIL=${INVENTREE_ADMIN_EMAIL}",
-        "INVENTREE_SITE_URL=http://${APP_DOMAIN}:${APP_PORT}",
-        "INVENTREE_USE_X_FORWARDED_HOST=True",
-        "INVENTREE_USE_X_FORWARDED_PORT=True",
-        "INVENTREE_USE_X_FORWARDED_PROTO=True",
-        "INVENTREE_GUNICORN_TIMEOUT=90"
+        {
+          "key": "INVENTREE_DB_ENGINE",
+          "value": "postgresql"
+        },
+        {
+          "key": "INVENTREE_DB_NAME",
+          "value": "${INVENTREE_DB_NAME}"
+        },
+        {
+          "key": "INVENTREE_DB_HOST",
+          "value": "inventree-db"
+        },
+        {
+          "key": "INVENTREE_DB_PORT",
+          "value": "5432"
+        },
+        {
+          "key": "INVENTREE_DB_USER",
+          "value": "${INVENTREE_DB_USER}"
+        },
+        {
+          "key": "INVENTREE_DB_PASSWORD",
+          "value": "${INVENTREE_DB_PASSWORD}"
+        },
+        {
+          "key": "INVENTREE_CACHE_ENABLED",
+          "value": "True"
+        },
+        {
+          "key": "INVENTREE_CACHE_HOST",
+          "value": "inventree-cache"
+        },
+        {
+          "key": "INVENTREE_CACHE_PORT",
+          "value": "6379"
+        },
+        {
+          "key": "INVENTREE_PLUGINS_ENABLED",
+          "value": "True"
+        },
+        {
+          "key": "INVENTREE_AUTO_UPDATE",
+          "value": "True"
+        },
+        {
+          "key": "INVENTREE_LOG_LEVEL",
+          "value": "WARNING"
+        },
+        {
+          "key": "INVENTREE_ADMIN_USER",
+          "value": "${INVENTREE_ADMIN_USER}"
+        },
+        {
+          "key": "INVENTREE_ADMIN_PASSWORD",
+          "value": "${INVENTREE_ADMIN_PASSWORD}"
+        },
+        {
+          "key": "INVENTREE_ADMIN_EMAIL",
+          "value": "${INVENTREE_ADMIN_EMAIL}"
+        },
+        {
+          "key": "INVENTREE_SITE_URL",
+          "value": "http://${APP_DOMAIN}:${APP_PORT}"
+        },
+        {
+          "key": "INVENTREE_USE_X_FORWARDED_HOST",
+          "value": "True"
+        },
+        {
+          "key": "INVENTREE_USE_X_FORWARDED_PORT",
+          "value": "True"
+        },
+        {
+          "key": "INVENTREE_USE_X_FORWARDED_PROTO",
+          "value": "True"
+        },
+        {
+          "key": "INVENTREE_GUNICORN_TIMEOUT",
+          "value": "90"
+        }
       ],
       "volumes": [
         {
@@ -64,18 +136,54 @@
       "command": "invoke worker",
       "dependsOn": ["inventree-server"],
       "environment": [
-        "INVENTREE_DB_ENGINE=postgresql",
-        "INVENTREE_DB_NAME=${INVENTREE_DB_NAME}",
-        "INVENTREE_DB_HOST=inventree-db",
-        "INVENTREE_DB_PORT=5432",
-        "INVENTREE_DB_USER=${INVENTREE_DB_USER}",
-        "INVENTREE_DB_PASSWORD=${INVENTREE_DB_PASSWORD}",
-        "INVENTREE_CACHE_ENABLED=True",
-        "INVENTREE_CACHE_HOST=inventree-cache",
-        "INVENTREE_CACHE_PORT=6379",
-        "INVENTREE_PLUGINS_ENABLED=True",
-        "INVENTREE_AUTO_UPDATE=True",
-        "INVENTREE_LOG_LEVEL=WARNING"
+        {
+          "key": "INVENTREE_DB_ENGINE",
+          "value": "postgresql"
+        },
+        {
+          "key": "INVENTREE_DB_NAME",
+          "value": "${INVENTREE_DB_NAME}"
+        },
+        {
+          "key": "INVENTREE_DB_HOST",
+          "value": "inventree-db"
+        },
+        {
+          "key": "INVENTREE_DB_PORT",
+          "value": "5432"
+        },
+        {
+          "key": "INVENTREE_DB_USER",
+          "value": "${INVENTREE_DB_USER}"
+        },
+        {
+          "key": "INVENTREE_DB_PASSWORD",
+          "value": "${INVENTREE_DB_PASSWORD}"
+        },
+        {
+          "key": "INVENTREE_CACHE_ENABLED",
+          "value": "True"
+        },
+        {
+          "key": "INVENTREE_CACHE_HOST",
+          "value": "inventree-cache"
+        },
+        {
+          "key": "INVENTREE_CACHE_PORT",
+          "value": "6379"
+        },
+        {
+          "key": "INVENTREE_PLUGINS_ENABLED",
+          "value": "True"
+        },
+        {
+          "key": "INVENTREE_AUTO_UPDATE",
+          "value": "True"
+        },
+        {
+          "key": "INVENTREE_LOG_LEVEL",
+          "value": "WARNING"
+        }
       ],
       "volumes": [
         {
