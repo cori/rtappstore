@@ -1,0 +1,98 @@
+{
+  "schemaVersion": 2,
+  "services": [
+    {
+      "name": "inventree-db",
+      "image": "postgres:13-alpine",
+      "environment": [
+        {
+          "key": "POSTGRES_USER",
+          "value": "${DB_USER}"
+        },
+        {
+          "key": "POSTGRES_PASSWORD",
+          "value": "${DB_PASSWORD}"
+        },
+        {
+          "key": "POSTGRES_DB",
+          "value": "inventree"
+        }
+      ],
+      "volumes": [
+        {
+          "hostPath": "${APP_DATA_DIR}/data/db",
+          "containerPath": "/var/lib/postgresql/data",
+          "readOnly": false
+        }
+      ]
+    },
+    {
+      "name": "inventree-cache",
+      "image": "redis:7-alpine",
+      "restart": "unless-stopped"
+    },
+    {
+      "name": "inventree-server",
+      "image": "inventree/inventree:stable",
+      "isMain": true,
+      "internalPort": 8000,
+      "depends_on": ["inventree-db", "inventree-cache"],
+      "environment": [
+        { "key": "INVENTREE_DB_ENGINE", "value": "postgresql" },
+        { "key": "INVENTREE_DB_NAME", "value": "inventree" },
+        { "key": "INVENTREE_DB_HOST", "value": "inventree-db" },
+        { "key": "INVENTREE_DB_PORT", "value": "5432" },
+        { "key": "INVENTREE_DB_USER", "value": "${DB_USER}" },
+        { "key": "INVENTREE_DB_PASSWORD", "value": "${DB_PASSWORD}" },
+        { "key": "INVENTREE_CACHE_HOST", "value": "inventree-cache" },
+        { "key": "INVENTREE_CACHE_PORT", "value": "6379" },
+        { "key": "INVENTREE_CACHE_ENABLED", "value": "True" },
+        { "key": "INVENTREE_MEDIA_ROOT", "value": "/home/inventree/data/media" },
+        { "key": "INVENTREE_STATIC_ROOT", "value": "/home/inventree/data/static" },
+        { "key": "INVENTREE_BACKUP_DIR", "value": "/home/inventree/data/backup" },
+        { "key": "INVENTREE_PLUGIN_DIR", "value": "/home/inventree/data/plugins" },
+        { "key": "INVENTREE_SECRET_KEY", "value": "${INVENTREE_SECRET_KEY}" },
+        { "key": "INVENTREE_SITE_URL", "value": "https://${APP_DOMAIN}" },
+        { "key": "INVENTREE_ADMIN_USER", "value": "${INVENTREE_ADMIN_USER}" },
+        { "key": "INVENTREE_ADMIN_EMAIL", "value": "${INVENTREE_ADMIN_EMAIL}" },
+        { "key": "INVENTREE_ADMIN_PASSWORD", "value": "${INVENTREE_ADMIN_PASSWORD}" }
+      ],
+      "volumes": [
+        {
+          "hostPath": "${APP_DATA_DIR}/data/inventree",
+          "containerPath": "/home/inventree/data",
+          "readOnly": false
+        }
+      ]
+    },
+    {
+      "name": "inventree-worker",
+      "image": "inventree/inventree:stable",
+      "command": "invoke worker",
+      "depends_on": ["inventree-server", "inventree-db", "inventree-cache"],
+      "environment": [
+        { "key": "INVENTREE_DB_ENGINE", "value": "postgresql" },
+        { "key": "INVENTREE_DB_NAME", "value": "inventree" },
+        { "key": "INVENTREE_DB_HOST", "value": "inventree-db" },
+        { "key": "INVENTREE_DB_PORT", "value": "5432" },
+        { "key": "INVENTREE_DB_USER", "value": "${DB_USER}" },
+        { "key": "INVENTREE_DB_PASSWORD", "value": "${DB_PASSWORD}" },
+        { "key": "INVENTREE_CACHE_HOST", "value": "inventree-cache" },
+        { "key": "INVENTREE_CACHE_PORT", "value": "6379" },
+        { "key": "INVENTREE_CACHE_ENABLED", "value": "True" },
+        { "key": "INVENTREE_MEDIA_ROOT", "value": "/home/inventree/data/media" },
+        { "key": "INVENTREE_STATIC_ROOT", "value": "/home/inventree/data/static" },
+        { "key": "INVENTREE_BACKUP_DIR", "value": "/home/inventree/data/backup" },
+        { "key": "INVENTREE_PLUGIN_DIR", "value": "/home/inventree/data/plugins" },
+        { "key": "INVENTREE_SECRET_KEY", "value": "${INVENTREE_SECRET_KEY}" }
+      ],
+      "volumes": [
+        {
+          "hostPath": "${APP_DATA_DIR}/data/inventree",
+          "containerPath": "/home/inventree/data",
+          "readOnly": false
+        }
+      ]
+    }
+  ]
+}
