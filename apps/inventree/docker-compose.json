@@ -110,6 +110,10 @@
           "value": "http://${APP_DOMAIN}:${APP_PORT}"
         },
         {
+          "key": "INVENTREE_CSRF_TRUSTED_ORIGINS",
+          "value": "${INVENTREE_CSRF_TRUSTED_ORIGINS}"
+        },
+        {
           "key": "INVENTREE_USE_X_FORWARDED_HOST",
           "value": "True"
         },

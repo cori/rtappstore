@@ -66,6 +66,13 @@
       "hint": "InvenTree admin account email (optional)",
       "required": false,
       "env_variable": "INVENTREE_ADMIN_EMAIL"
+    },
+    {
+      "type": "text",
+      "label": "Trusted Origins",
+      "hint": "Comma-separated list of trusted origins (e.g., http://keeper-of-tools.local:8370,http://inventree.407.lol:8370). Leave empty to allow all.",
+      "required": false,
+      "env_variable": "INVENTREE_CSRF_TRUSTED_ORIGINS"
     }
   ]
 }
