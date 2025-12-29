@@ -6,9 +6,14 @@
   "port": 8000,
   "exposed": true,
   "dynamic_config": true,
-  "backup_volumes": ["${APP_DATA_DIR}/data"],
+  "backup_volumes": [
+    "${APP_DATA_DIR}/data"
+  ],
   "min_tipi_version": "4.0.0",
-  "categories": ["productivity", "utilities", "development"],
+  "categories": [
+    "utilities",
+    "data"
+  ],
   "description": "InvenTree is an open-source inventory management system which provides intuitive parts management and stock control. It is designed to be lightweight and easy to use.",
   "author": "InvenTree",
   "source": "https://github.com/inventree/InvenTree",

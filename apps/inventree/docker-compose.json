@@ -4,7 +4,7 @@
     {
       "name": "inventree-db",
       "image": "postgres:13-alpine",
-      "environment": [
+      "environment": {
         {
           "key": "POSTGRES_USER",
           "value": "${DB_USER}"
@@ -17,7 +17,7 @@
           "key": "POSTGRES_DB",
           "value": "inventree"
         }
-      ],
+      },
       "volumes": [
         {
           "hostPath": "${APP_DATA_DIR}/data/db",
