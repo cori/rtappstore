@@ -69,10 +69,6 @@
         {
           "hostPath": "${APP_DATA_DIR}/public_media",
           "containerPath": "/var/www/html/public/media"
-        },
-        {
-          "hostPath": "${APP_DATA_DIR}/var",
-          "containerPath": "/var/www/html/var"
         }
       ],
       "internalPort": "80"
