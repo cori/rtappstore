@@ -4,12 +4,12 @@
     {
       "name": "inventree-db",
       "image": "postgres:17",
-      "environment": {
-        "PGDATA": "/var/lib/postgresql/data/pgdb",
-        "POSTGRES_USER": "${INVENTREE_DB_USER}",
-        "POSTGRES_PASSWORD": "${INVENTREE_DB_PASSWORD}",
-        "POSTGRES_DB": "${INVENTREE_DB_NAME}"
-      },
+      "environment": [
+        "PGDATA=/var/lib/postgresql/data/pgdb",
+        "POSTGRES_USER=${INVENTREE_DB_USER}",
+        "POSTGRES_PASSWORD=${INVENTREE_DB_PASSWORD}",
+        "POSTGRES_DB=${INVENTREE_DB_NAME}"
+      ],
       "volumes": [
         {
           "hostPath": "${APP_DATA_DIR}/postgresql",
@@ -28,28 +28,28 @@
       "image": "inventree/inventree:stable",
       "isMain": true,
       "dependsOn": ["inventree-db", "inventree-cache"],
-      "environment": {
-        "INVENTREE_DB_ENGINE": "postgresql",
-        "INVENTREE_DB_NAME": "${INVENTREE_DB_NAME}",
-        "INVENTREE_DB_HOST": "inventree-db",
-        "INVENTREE_DB_PORT": "5432",
-        "INVENTREE_DB_USER": "${INVENTREE_DB_USER}",
-        "INVENTREE_DB_PASSWORD": "${INVENTREE_DB_PASSWORD}",
-        "INVENTREE_CACHE_ENABLED": "True",
-        "INVENTREE_CACHE_HOST": "inventree-cache",
-        "INVENTREE_CACHE_PORT": "6379",
-        "INVENTREE_PLUGINS_ENABLED": "True",
-        "INVENTREE_AUTO_UPDATE": "True",
-        "INVENTREE_LOG_LEVEL": "WARNING",
-        "INVENTREE_ADMIN_USER": "${INVENTREE_ADMIN_USER}",
-        "INVENTREE_ADMIN_PASSWORD": "${INVENTREE_ADMIN_PASSWORD}",
-        "INVENTREE_ADMIN_EMAIL": "${INVENTREE_ADMIN_EMAIL}",
-        "INVENTREE_SITE_URL": "http://${APP_DOMAIN}:${APP_PORT}",
-        "INVENTREE_USE_X_FORWARDED_HOST": "True",
-        "INVENTREE_USE_X_FORWARDED_PORT": "True",
-        "INVENTREE_USE_X_FORWARDED_PROTO": "True",
-        "INVENTREE_GUNICORN_TIMEOUT": "90"
-      },
+      "environment": [
+        "INVENTREE_DB_ENGINE=postgresql",
+        "INVENTREE_DB_NAME=${INVENTREE_DB_NAME}",
+        "INVENTREE_DB_HOST=inventree-db",
+        "INVENTREE_DB_PORT=5432",
+        "INVENTREE_DB_USER=${INVENTREE_DB_USER}",
+        "INVENTREE_DB_PASSWORD=${INVENTREE_DB_PASSWORD}",
+        "INVENTREE_CACHE_ENABLED=True",
+        "INVENTREE_CACHE_HOST=inventree-cache",
+        "INVENTREE_CACHE_PORT=6379",
+        "INVENTREE_PLUGINS_ENABLED=True",
+        "INVENTREE_AUTO_UPDATE=True",
+        "INVENTREE_LOG_LEVEL=WARNING",
+        "INVENTREE_ADMIN_USER=${INVENTREE_ADMIN_USER}",
+        "INVENTREE_ADMIN_PASSWORD=${INVENTREE_ADMIN_PASSWORD}",
+        "INVENTREE_ADMIN_EMAIL=${INVENTREE_ADMIN_EMAIL}",
+        "INVENTREE_SITE_URL=http://${APP_DOMAIN}:${APP_PORT}",
+        "INVENTREE_USE_X_FORWARDED_HOST=True",
+        "INVENTREE_USE_X_FORWARDED_PORT=True",
+        "INVENTREE_USE_X_FORWARDED_PROTO=True",
+        "INVENTREE_GUNICORN_TIMEOUT=90"
+      ],
       "volumes": [
         {
           "hostPath": "${APP_DATA_DIR}/data",
@@ -63,20 +63,20 @@
       "image": "inventree/inventree:stable",
       "command": "invoke worker",
       "dependsOn": ["inventree-server"],
-      "environment": {
-        "INVENTREE_DB_ENGINE": "postgresql",
-        "INVENTREE_DB_NAME": "${INVENTREE_DB_NAME}",
-        "INVENTREE_DB_HOST": "inventree-db",
-        "INVENTREE_DB_PORT": "5432",
-        "INVENTREE_DB_USER": "${INVENTREE_DB_USER}",
-        "INVENTREE_DB_PASSWORD": "${INVENTREE_DB_PASSWORD}",
-        "INVENTREE_CACHE_ENABLED": "True",
-        "INVENTREE_CACHE_HOST": "inventree-cache",
-        "INVENTREE_CACHE_PORT": "6379",
-        "INVENTREE_PLUGINS_ENABLED": "True",
-        "INVENTREE_AUTO_UPDATE": "True",
-        "INVENTREE_LOG_LEVEL": "WARNING"
-      },
+      "environment": [
+        "INVENTREE_DB_ENGINE=postgresql",
+        "INVENTREE_DB_NAME=${INVENTREE_DB_NAME}",
+        "INVENTREE_DB_HOST=inventree-db",
+        "INVENTREE_DB_PORT=5432",
+        "INVENTREE_DB_USER=${INVENTREE_DB_USER}",
+        "INVENTREE_DB_PASSWORD=${INVENTREE_DB_PASSWORD}",
+        "INVENTREE_CACHE_ENABLED=True",
+        "INVENTREE_CACHE_HOST=inventree-cache",
+        "INVENTREE_CACHE_PORT=6379",
+        "INVENTREE_PLUGINS_ENABLED=True",
+        "INVENTREE_AUTO_UPDATE=True",
+        "INVENTREE_LOG_LEVEL=WARNING"
+      ],
       "volumes": [
         {
           "hostPath": "${APP_DATA_DIR}/data",
