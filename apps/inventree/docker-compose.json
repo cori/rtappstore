@@ -20,6 +20,10 @@
         {
           "key": "POSTGRES_DB",
           "value": "${INVENTREE_DB_NAME}"
+        },
+        {
+          "key": "POSTGRES_INITDB_ARGS",
+          "value": "--encoding=UTF8"
         }
       ],
       "volumes": [
