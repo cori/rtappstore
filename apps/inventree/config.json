@@ -1,0 +1,58 @@
+{
+  "name": "InvenTree",
+  "id": "inventree",
+  "short_desc": "Open Source Inventory Management System",
+  "url_suffix": "inventree",
+  "port": 8000,
+  "exposed": true,
+  "dynamic_config": true,
+  "backup_volumes": ["${APP_DATA_DIR}/data"],
+  "min_tipi_version": "4.0.0",
+  "categories": ["productivity", "utilities", "development"],
+  "description": "InvenTree is an open-source inventory management system which provides intuitive parts management and stock control. It is designed to be lightweight and easy to use.",
+  "author": "InvenTree",
+  "source": "https://github.com/inventree/InvenTree",
+  "form_fields": [
+    {
+      "type": "text",
+      "label": "Database User",
+      "env_variable": "DB_USER",
+      "required": true,
+      "default": "inventree"
+    },
+    {
+      "type": "password",
+      "label": "Database Password",
+      "env_variable": "DB_PASSWORD",
+      "required": true,
+      "min": 8
+    },
+    {
+      "type": "text",
+      "label": "Admin Username",
+      "env_variable": "INVENTREE_ADMIN_USER",
+      "required": true,
+      "default": "admin"
+    },
+    {
+      "type": "email",
+      "label": "Admin Email",
+      "env_variable": "INVENTREE_ADMIN_EMAIL",
+      "required": true
+    },
+    {
+      "type": "password",
+      "label": "Admin Password",
+      "env_variable": "INVENTREE_ADMIN_PASSWORD",
+      "required": true,
+      "min": 8
+    },
+    {
+      "type": "random",
+      "label": "Secret Key",
+      "env_variable": "INVENTREE_SECRET_KEY",
+      "required": true,
+      "min": 50
+    }
+  ]
+}
