@@ -10,7 +10,7 @@
     "utilities"
   ],
   "description": "InvenTree is an open-source inventory management system which provides intuitive parts management and stock control. Features include multi-level BOM management, stock tracking, order management, and comprehensive reporting.",
-  "tipi_version": 2,
+  "min_tipi_version": "3.0.0",
   "version": "stable",
   "source": "https://github.com/inventree/InvenTree",
   "exposable": true,
