@@ -1,0 +1,65 @@
+{
+  "name": "Filament Profiles",
+  "id": "filament-profiles",
+  "available": true,
+  "short_desc": "Print settings management companion for Spoolman",
+  "author": "cori",
+  "port": 7920,
+  "categories": [
+    "utilities",
+    "data"
+  ],
+  "description": "Filament Profiles is a self-hosted web application for managing 3D printer filament settings. Track optimal print configurations including temperatures, pressure advance, flow rates, and speeds for different filaments across various machines and build plates.",
+  "tipi_version": 2,
+  "version": "latest",
+  "source": "https://github.com/cori/filament-profiles",
+  "exposable": true,
+  "supported_architectures": [
+    "arm64",
+    "amd64"
+  ],
+  "created_at": 1737763200000,
+  "updated_at": 1737763200000,
+  "dynamic_config": true,
+  "form_fields": [
+    {
+      "type": "text",
+      "label": "Database User",
+      "hint": "PostgreSQL database username",
+      "required": true,
+      "env_variable": "FILAMENT_PROFILES_DB_USER",
+      "default": "filamentprofiles"
+    },
+    {
+      "type": "password",
+      "label": "Database Password",
+      "hint": "PostgreSQL database password (change from default!)",
+      "required": true,
+      "env_variable": "FILAMENT_PROFILES_DB_PASSWORD",
+      "default": "changeme"
+    },
+    {
+      "type": "text",
+      "label": "Database Name",
+      "hint": "PostgreSQL database name",
+      "required": true,
+      "env_variable": "FILAMENT_PROFILES_DB_NAME",
+      "default": "filamentprofiles"
+    },
+    {
+      "type": "text",
+      "label": "Spoolman URL",
+      "hint": "Optional URL to your Spoolman instance (e.g., http://spoolman:7912)",
+      "required": false,
+      "env_variable": "SPOOLMAN_URL"
+    },
+    {
+      "type": "text",
+      "label": "Timezone",
+      "hint": "Timezone setting (e.g., America/New_York, Europe/Berlin)",
+      "required": false,
+      "env_variable": "TZ",
+      "default": "UTC"
+    }
+  ]
+}
