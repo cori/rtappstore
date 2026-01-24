@@ -24,56 +24,56 @@
   "dynamic_config": true,
   "form_fields": [
     {
-      "type": "password",
+      "type": "text",
       "label": "Anthropic API Key",
       "env_variable": "ANTHROPIC_API_KEY",
       "hint": "Your Anthropic API key for Claude models (starts with sk-ant-)",
       "required": false
     },
     {
-      "type": "password",
+      "type": "text",
       "label": "OpenAI API Key",
       "env_variable": "OPENAI_API_KEY",
       "hint": "Your OpenAI API key for GPT models (starts with sk-)",
       "required": false
     },
     {
-      "type": "password",
+      "type": "text",
       "label": "Google Gemini API Key",
       "env_variable": "GEMINI_API_KEY",
       "hint": "Your Google AI API key for Gemini models",
       "required": false
     },
     {
-      "type": "password",
+      "type": "text",
       "label": "OpenRouter API Key",
       "env_variable": "OPENROUTER_API_KEY",
       "hint": "Your OpenRouter API key for accessing multiple model providers",
       "required": false
     },
     {
-      "type": "password",
+      "type": "text",
       "label": "Telegram Bot Token",
       "env_variable": "TELEGRAM_BOT_TOKEN",
       "hint": "Your Telegram bot token from @BotFather",
       "required": false
     },
     {
-      "type": "password",
+      "type": "text",
       "label": "Discord Bot Token",
       "env_variable": "DISCORD_BOT_TOKEN",
       "hint": "Your Discord bot token from the Developer Portal",
       "required": false
     },
     {
-      "type": "password",
+      "type": "text",
       "label": "Slack Bot Token",
       "env_variable": "SLACK_BOT_TOKEN",
       "hint": "Your Slack bot token (starts with xoxb-)",
       "required": false
     },
     {
-      "type": "password",
+      "type": "text",
       "label": "Slack App Token",
       "env_variable": "SLACK_APP_TOKEN",
       "hint": "Your Slack app-level token for Socket Mode (starts with xapp-)",
