@@ -24,60 +24,76 @@
   "dynamic_config": true,
   "form_fields": [
     {
-      "type": "text",
+      "type": "password",
       "label": "Anthropic API Key",
       "env_variable": "ANTHROPIC_API_KEY",
       "hint": "Your Anthropic API key for Claude models (starts with sk-ant-)",
-      "required": false
+      "required": false,
+      "min": 0,
+      "max": 256
     },
     {
-      "type": "text",
+      "type": "password",
       "label": "OpenAI API Key",
       "env_variable": "OPENAI_API_KEY",
       "hint": "Your OpenAI API key for GPT models (starts with sk-)",
-      "required": false
+      "required": false,
+      "min": 0,
+      "max": 256
     },
     {
-      "type": "text",
+      "type": "password",
       "label": "Google Gemini API Key",
       "env_variable": "GEMINI_API_KEY",
       "hint": "Your Google AI API key for Gemini models",
-      "required": false
+      "required": false,
+      "min": 0,
+      "max": 256
     },
     {
-      "type": "text",
+      "type": "password",
       "label": "OpenRouter API Key",
       "env_variable": "OPENROUTER_API_KEY",
       "hint": "Your OpenRouter API key for accessing multiple model providers",
-      "required": false
+      "required": false,
+      "min": 0,
+      "max": 256
     },
     {
-      "type": "text",
+      "type": "password",
       "label": "Telegram Bot Token",
       "env_variable": "TELEGRAM_BOT_TOKEN",
       "hint": "Your Telegram bot token from @BotFather",
-      "required": false
+      "required": false,
+      "min": 0,
+      "max": 256
     },
     {
-      "type": "text",
+      "type": "password",
       "label": "Discord Bot Token",
       "env_variable": "DISCORD_BOT_TOKEN",
       "hint": "Your Discord bot token from the Developer Portal",
-      "required": false
+      "required": false,
+      "min": 0,
+      "max": 256
     },
     {
-      "type": "text",
+      "type": "password",
       "label": "Slack Bot Token",
       "env_variable": "SLACK_BOT_TOKEN",
       "hint": "Your Slack bot token (starts with xoxb-)",
-      "required": false
+      "required": false,
+      "min": 0,
+      "max": 256
     },
     {
-      "type": "text",
+      "type": "password",
       "label": "Slack App Token",
       "env_variable": "SLACK_APP_TOKEN",
       "hint": "Your Slack app-level token for Socket Mode (starts with xapp-)",
-      "required": false
+      "required": false,
+      "min": 0,
+      "max": 256
     },
     {
       "type": "password",
@@ -85,7 +101,8 @@
       "env_variable": "CLAWDBOT_GATEWAY_TOKEN",
       "hint": "Authentication token for the gateway API. Generate with: openssl rand -hex 32",
       "required": true,
-      "min": 32
+      "min": 32,
+      "max": 256
     }
   ]
 }
