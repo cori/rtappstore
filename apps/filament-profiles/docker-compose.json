@@ -1,4 +1,5 @@
 {
+  "$schema": "../dynamic-compose-schema.json",
   "services": [
     {
       "name": "filament-profiles-db",
@@ -15,7 +16,7 @@
         }
       ],
       "healthCheck": {
-        "test": "pg_isready -U ${FILAMENT_PROFILES_DB_USER} -d ${FILAMENT_PROFILES_DB_NAME}",
+        "test": "pg_isready -U $POSTGRES_USER -d $POSTGRES_DB",
         "interval": "5s",
         "timeout": "5s",
         "retries": 5
@@ -27,6 +28,7 @@
       "image": "ghcr.io/cori/filament-profiles:main",
       "isMain": true,
       "dependsOn": ["filament-profiles-db"],
+      "command": "sh -c 'alembic upgrade head && uvicorn src.main:app --host 0.0.0.0 --port 8000'",
       "environment": {
         "DATABASE_URL": "postgresql://${FILAMENT_PROFILES_DB_USER}:${FILAMENT_PROFILES_DB_PASSWORD}@filament-profiles-db:5432/${FILAMENT_PROFILES_DB_NAME}",
         "SPOOLMAN_URL": "${SPOOLMAN_URL}",
