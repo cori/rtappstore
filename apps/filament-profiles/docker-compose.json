@@ -1,0 +1,38 @@
+{
+  "services": [
+    {
+      "name": "filament-profiles-db",
+      "image": "postgres:16-alpine",
+      "environment": {
+        "POSTGRES_USER": "${FILAMENT_PROFILES_DB_USER}",
+        "POSTGRES_PASSWORD": "${FILAMENT_PROFILES_DB_PASSWORD}",
+        "POSTGRES_DB": "${FILAMENT_PROFILES_DB_NAME}"
+      },
+      "volumes": [
+        {
+          "hostPath": "${APP_DATA_DIR}/postgres",
+          "containerPath": "/var/lib/postgresql/data"
+        }
+      ],
+      "healthCheck": {
+        "test": "pg_isready -U ${FILAMENT_PROFILES_DB_USER} -d ${FILAMENT_PROFILES_DB_NAME}",
+        "interval": "5s",
+        "timeout": "5s",
+        "retries": 5
+      },
+      "internalPort": "5432"
+    },
+    {
+      "name": "filament-profiles",
+      "image": "ghcr.io/cori/filament-profiles:main",
+      "isMain": true,
+      "dependsOn": ["filament-profiles-db"],
+      "environment": {
+        "DATABASE_URL": "postgresql://${FILAMENT_PROFILES_DB_USER}:${FILAMENT_PROFILES_DB_PASSWORD}@filament-profiles-db:5432/${FILAMENT_PROFILES_DB_NAME}",
+        "SPOOLMAN_URL": "${SPOOLMAN_URL}",
+        "TZ": "${TZ}"
+      },
+      "internalPort": "8000"
+    }
+  ]
+}
