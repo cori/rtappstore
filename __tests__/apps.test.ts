@@ -5,21 +5,20 @@ import { z } from 'zod';
 import fs from 'node:fs'
 import path from 'node:path'
 
-// Custom docker-compose schema that accepts both v1 (array) and v2 (object) environment formats
-// This is needed because different runtipi versions use different schemas
-const environmentV1Schema = z.array(z.object({
+// Custom docker-compose schema that matches runtipi v2 format
+// Note: runtipi v2 uses array format for environment (not object format)
+// See: https://runtipi.io/docs/reference/dynamic-compose
+const environmentSchema = z.array(z.object({
   key: z.string(),
-  value: z.string()
+  value: z.union([z.string(), z.number(), z.boolean()])
 }));
-
-const environmentV2Schema = z.record(z.string(), z.string());
 
 const serviceSchema = z.object({
   name: z.string(),
   image: z.string(),
   isMain: z.boolean().optional(),
   internalPort: z.union([z.string(), z.number()]).optional(),
-  environment: z.union([environmentV1Schema, environmentV2Schema]).optional(),
+  environment: environmentSchema.optional(),
   volumes: z.array(z.object({
     hostPath: z.string(),
     containerPath: z.string()
@@ -36,7 +35,7 @@ const serviceSchema = z.object({
 }).passthrough();
 
 const dynamicComposeSchema = z.object({
-  schemaVersion: z.number().optional(),
+  schemaVersion: z.literal(2),
   services: z.array(serviceSchema)
 });
 
