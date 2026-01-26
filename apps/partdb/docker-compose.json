@@ -3,12 +3,24 @@
     {
       "name": "partdb-db",
       "image": "mariadb:11",
-      "environment": {
-        "MYSQL_DATABASE": "${PARTDB_DB_NAME}",
-        "MYSQL_USER": "${PARTDB_DB_USER}",
-        "MYSQL_PASSWORD": "${PARTDB_DB_PASSWORD}",
-        "MYSQL_ROOT_PASSWORD": "${PARTDB_DB_PASSWORD}"
-      },
+      "environment": [
+        {
+          "key": "MYSQL_DATABASE",
+          "value": "${PARTDB_DB_NAME}"
+        },
+        {
+          "key": "MYSQL_USER",
+          "value": "${PARTDB_DB_USER}"
+        },
+        {
+          "key": "MYSQL_PASSWORD",
+          "value": "${PARTDB_DB_PASSWORD}"
+        },
+        {
+          "key": "MYSQL_ROOT_PASSWORD",
+          "value": "${PARTDB_DB_PASSWORD}"
+        }
+      ],
       "volumes": [
         {
           "hostPath": "${APP_DATA_DIR}/mysql",
@@ -22,14 +34,32 @@
       "image": "jbtronics/part-db1:latest",
       "isMain": true,
       "dependsOn": ["partdb-db"],
-      "environment": {
-        "DATABASE_URL": "mysql://${PARTDB_DB_USER}:${PARTDB_DB_PASSWORD}@partdb-db:3306/${PARTDB_DB_NAME}",
-        "APP_ENV": "docker",
-        "DEFAULT_LANG": "${PARTDB_DEFAULT_LANG}",
-        "DEFAULT_TIMEZONE": "${PARTDB_DEFAULT_TIMEZONE}",
-        "BASE_CURRENCY": "${PARTDB_BASE_CURRENCY}",
-        "TRUSTED_PROXIES": "127.0.0.0/8,10.0.0.0/8,172.16.0.0/12,192.168.0.0/16"
-      },
+      "environment": [
+        {
+          "key": "DATABASE_URL",
+          "value": "mysql://${PARTDB_DB_USER}:${PARTDB_DB_PASSWORD}@partdb-db:3306/${PARTDB_DB_NAME}"
+        },
+        {
+          "key": "APP_ENV",
+          "value": "docker"
+        },
+        {
+          "key": "DEFAULT_LANG",
+          "value": "${PARTDB_DEFAULT_LANG}"
+        },
+        {
+          "key": "DEFAULT_TIMEZONE",
+          "value": "${PARTDB_DEFAULT_TIMEZONE}"
+        },
+        {
+          "key": "BASE_CURRENCY",
+          "value": "${PARTDB_BASE_CURRENCY}"
+        },
+        {
+          "key": "TRUSTED_PROXIES",
+          "value": "127.0.0.0/8,10.0.0.0/8,172.16.0.0/12,192.168.0.0/16"
+        }
+      ],
       "volumes": [
         {
           "hostPath": "${APP_DATA_DIR}/uploads",
