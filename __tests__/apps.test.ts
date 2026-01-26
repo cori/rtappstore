@@ -1,8 +1,43 @@
 import { expect, test, describe } from "bun:test";
-import { appInfoSchema, dynamicComposeSchema } from '@runtipi/common/schemas'
+import { appInfoSchema } from '@runtipi/common/schemas'
 import { fromError } from 'zod-validation-error';
+import { z } from 'zod';
 import fs from 'node:fs'
 import path from 'node:path'
+
+// Custom docker-compose schema that matches runtipi v2 format
+// Note: runtipi v2 uses array format for environment (not object format)
+// See: https://runtipi.io/docs/reference/dynamic-compose
+const environmentSchema = z.array(z.object({
+  key: z.string(),
+  value: z.union([z.string(), z.number(), z.boolean()])
+}));
+
+const serviceSchema = z.object({
+  name: z.string(),
+  image: z.string(),
+  isMain: z.boolean().optional(),
+  internalPort: z.union([z.string(), z.number()]).optional(),
+  environment: environmentSchema.optional(),
+  volumes: z.array(z.object({
+    hostPath: z.string(),
+    containerPath: z.string()
+  })).optional(),
+  command: z.union([z.string(), z.array(z.string())]).optional(),
+  dependsOn: z.array(z.string()).optional(),
+  healthCheck: z.object({
+    test: z.string(),
+    interval: z.string().optional(),
+    timeout: z.string().optional(),
+    retries: z.number().optional()
+  }).optional(),
+  networkMode: z.string().optional(),
+}).passthrough();
+
+const dynamicComposeSchema = z.object({
+  schemaVersion: z.literal(2),
+  services: z.array(serviceSchema)
+});
 
 const getApps = async () => {
   const appsDir = await fs.promises.readdir(path.join(process.cwd(), 'apps'))
