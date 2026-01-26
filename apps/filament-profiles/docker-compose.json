@@ -5,11 +5,11 @@
     {
       "name": "filament-profiles-db",
       "image": "postgres:16-alpine",
-      "environment": {
-        "POSTGRES_USER": "${FILAMENT_PROFILES_DB_USER}",
-        "POSTGRES_PASSWORD": "${FILAMENT_PROFILES_DB_PASSWORD}",
-        "POSTGRES_DB": "${FILAMENT_PROFILES_DB_NAME}"
-      },
+      "environment": [
+        { "key": "POSTGRES_USER", "value": "${FILAMENT_PROFILES_DB_USER}" },
+        { "key": "POSTGRES_PASSWORD", "value": "${FILAMENT_PROFILES_DB_PASSWORD}" },
+        { "key": "POSTGRES_DB", "value": "${FILAMENT_PROFILES_DB_NAME}" }
+      ],
       "volumes": [
         {
           "hostPath": "${APP_DATA_DIR}/postgres",
@@ -30,11 +30,11 @@
       "isMain": true,
       "dependsOn": ["filament-profiles-db"],
       "command": "sh -c 'alembic upgrade head && uvicorn filamentprofiles.main:app --host 0.0.0.0 --port 8000'",
-      "environment": {
-        "DATABASE_URL": "postgresql://${FILAMENT_PROFILES_DB_USER}:${FILAMENT_PROFILES_DB_PASSWORD}@filament-profiles-db:5432/${FILAMENT_PROFILES_DB_NAME}",
-        "SPOOLMAN_URL": "${SPOOLMAN_URL}",
-        "TZ": "${TZ}"
-      },
+      "environment": [
+        { "key": "DATABASE_URL", "value": "postgresql://${FILAMENT_PROFILES_DB_USER}:${FILAMENT_PROFILES_DB_PASSWORD}@filament-profiles-db:5432/${FILAMENT_PROFILES_DB_NAME}" },
+        { "key": "SPOOLMAN_URL", "value": "${SPOOLMAN_URL}" },
+        { "key": "TZ", "value": "${TZ}" }
+      ],
       "internalPort": "8000"
     }
   ]
