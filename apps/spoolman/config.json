@@ -1,0 +1,69 @@
+{
+  "$schema": "../app-info-schema.json",
+  "name": "Spoolman",
+  "id": "spoolman",
+  "available": true,
+  "short_desc": "Self-hosted 3D printer filament spool inventory management",
+  "author": "Donkie",
+  "port": 7912,
+  "categories": [
+    "utilities",
+    "data"
+  ],
+  "description": "Spoolman is a self-hosted web service for managing 3D printer filament spool inventory. It automatically tracks spool weights as printing progresses and integrates with OctoPrint, Klipper/Moonraker, and Home Assistant.",
+  "tipi_version": 11,
+  "min_tipi_version": "4.5.0",
+  "version": "0.23.0",
+  "source": "https://github.com/Donkie/Spoolman",
+  "website": "https://github.com/Donkie/Spoolman",
+  "exposable": true,
+  "supported_architectures": [
+    "arm64",
+    "amd64"
+  ],
+  "created_at": 1737849600000,
+  "updated_at": 1737849600000,
+  "dynamic_config": true,
+  "form_fields": [
+    {
+      "type": "text",
+      "label": "Timezone",
+      "hint": "Timezone setting (e.g., America/New_York, Europe/Berlin)",
+      "required": false,
+      "env_variable": "TZ",
+      "default": "UTC"
+    },
+    {
+      "type": "text",
+      "label": "User ID (PUID)",
+      "hint": "User ID for file permissions in the container",
+      "required": false,
+      "env_variable": "PUID",
+      "default": "1000"
+    },
+    {
+      "type": "text",
+      "label": "Group ID (PGID)",
+      "hint": "Group ID for file permissions in the container",
+      "required": false,
+      "env_variable": "PGID",
+      "default": "1000"
+    },
+    {
+      "type": "text",
+      "label": "Logging Level",
+      "hint": "Logging level: DEBUG, INFO, WARNING, ERROR, CRITICAL",
+      "required": false,
+      "env_variable": "SPOOLMAN_LOGGING_LEVEL",
+      "default": "INFO"
+    },
+    {
+      "type": "text",
+      "label": "Automatic Backup",
+      "hint": "Enable automatic nightly backup for SQLite database (TRUE/FALSE)",
+      "required": false,
+      "env_variable": "SPOOLMAN_AUTOMATIC_BACKUP",
+      "default": "TRUE"
+    }
+  ]
+}
