@@ -1,17 +1,17 @@
 {
-  "$schema": "../dynamic-compose-schema.json",
+  "schemaVersion": 2,
   "services": [
     {
       "name": "spoolman",
       "image": "ghcr.io/donkie/spoolman:0.23.0",
       "isMain": true,
-      "environment": {
-        "TZ": "${TZ}",
-        "PUID": "${PUID}",
-        "PGID": "${PGID}",
-        "SPOOLMAN_LOGGING_LEVEL": "${SPOOLMAN_LOGGING_LEVEL}",
-        "SPOOLMAN_AUTOMATIC_BACKUP": "${SPOOLMAN_AUTOMATIC_BACKUP}"
-      },
+      "environment": [
+        { "key": "TZ", "value": "${TZ}" },
+        { "key": "PUID", "value": "${PUID}" },
+        { "key": "PGID", "value": "${PGID}" },
+        { "key": "SPOOLMAN_LOGGING_LEVEL", "value": "${SPOOLMAN_LOGGING_LEVEL}" },
+        { "key": "SPOOLMAN_AUTOMATIC_BACKUP", "value": "${SPOOLMAN_AUTOMATIC_BACKUP}" }
+      ],
       "volumes": [
         {
           "hostPath": "${APP_DATA_DIR}/data",
