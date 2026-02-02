@@ -77,6 +77,14 @@ Key differences from standard docker-compose:
 - `volumes` uses `hostPath`/`containerPath` objects
 - Template variables: `${APP_DATA_DIR}`, `${TZ}`, `${PUID}`, `${PGID}`, and custom `${VAR}` from form_fields
 
+## Docker Image Versioning
+
+**NEVER use `latest` tags** - Runtipi cannot track updates for images using `latest`, and they can break unexpectedly.
+
+- Always use specific semantic version tags (e.g., `nginx:1.25.3`, `postgres:16-alpine`)
+- The `version` field in `config.json` should match the Docker image version
+- If an upstream project only publishes `latest` tags without versioned releases, use a pinned SHA-based tag (e.g., `image:sha-abc123`) and document this limitation in the app's description.md
+
 ## Automation
 
 Renovate bot monitors docker image versions and runs `scripts/update-config.ts` on updates, which:

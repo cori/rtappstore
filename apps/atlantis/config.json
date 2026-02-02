@@ -9,7 +9,7 @@
   "categories": ["utilities", "data"],
   "description": "Atlantis is a self-hosted platform for creating and managing Mermaid.js diagrams, notes, and knowledge. Features include a modern split-pane editor with live preview, interactive todo lists, full Mermaid.js support, local SQLite persistence, dark/light mode, favorites, search, backup/restore, and diagram version checkpoints.",
   "tipi_version": 1,
-  "version": "1.0.0",
+  "version": "sha-590dbb7",
   "source": "https://github.com/Fantastic-Computing-Machine/atlantis",
   "website": "https://github.com/Fantastic-Computing-Machine/atlantis",
   "exposable": true,

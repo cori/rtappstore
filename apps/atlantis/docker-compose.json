@@ -4,7 +4,7 @@
   "services": [
     {
       "name": "atlantis",
-      "image": "strikead/atlantis:latest",
+      "image": "strikead/atlantis:sha-590dbb7a38a772616aaa05c2cf8c1c951f930ca8",
       "isMain": true,
       "internalPort": "3000",
       "environment": [

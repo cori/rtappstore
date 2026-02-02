@@ -26,6 +26,10 @@ Set your timezone using the `TZ` environment variable (e.g., `America/New_York`,
 All data is stored in:
 - `/app/data` - Contains the SQLite database (`atlantis.db`)
 
+## Versioning Note
+
+The upstream Atlantis project does not publish semantic version tags. This app uses a pinned commit SHA tag for stability. To update to a newer version, check the [Docker Hub tags](https://hub.docker.com/r/strikead/atlantis/tags) for newer SHA-based tags.
+
 ## Resources
 
 - [GitHub Repository](https://github.com/Fantastic-Computing-Machine/atlantis)
