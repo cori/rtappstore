@@ -1,0 +1,30 @@
+{
+  "$schema": "../app-info-schema.json",
+  "name": "Atlantis",
+  "id": "atlantis",
+  "available": true,
+  "short_desc": "Self-hosted platform for Mermaid.js diagrams and knowledge management",
+  "author": "Fantastic Computing Machine",
+  "port": 8240,
+  "categories": ["utilities", "data"],
+  "description": "Atlantis is a self-hosted platform for creating and managing Mermaid.js diagrams, notes, and knowledge. Features include a modern split-pane editor with live preview, interactive todo lists, full Mermaid.js support, local SQLite persistence, dark/light mode, favorites, search, backup/restore, and diagram version checkpoints.",
+  "tipi_version": 1,
+  "version": "1.0.0",
+  "source": "https://github.com/Fantastic-Computing-Machine/atlantis",
+  "website": "https://github.com/Fantastic-Computing-Machine/atlantis",
+  "exposable": true,
+  "supported_architectures": ["arm64", "amd64"],
+  "created_at": 1770058409684,
+  "updated_at": 1770058409684,
+  "dynamic_config": true,
+  "form_fields": [
+    {
+      "type": "text",
+      "label": "Timezone",
+      "hint": "Timezone setting (e.g., America/New_York, Europe/Berlin)",
+      "required": false,
+      "env_variable": "TZ",
+      "default": "UTC"
+    }
+  ]
+}

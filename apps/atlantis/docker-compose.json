@@ -1,0 +1,21 @@
+{
+  "$schema": "../dynamic-compose-schema.json",
+  "schemaVersion": 2,
+  "services": [
+    {
+      "name": "atlantis",
+      "image": "strikead/atlantis:latest",
+      "isMain": true,
+      "internalPort": "3000",
+      "environment": [
+        { "key": "TZ", "value": "${TZ}" }
+      ],
+      "volumes": [
+        {
+          "hostPath": "${APP_DATA_DIR}/data",
+          "containerPath": "/app/data"
+        }
+      ]
+    }
+  ]
+}
