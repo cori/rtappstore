@@ -1,0 +1,30 @@
+{
+  "name": "FPV Training Tracker",
+  "id": "fpv-tracker",
+  "available": true,
+  "short_desc": "Self-hosted PWA for tracking FPV freestyle drone training progress, sessions, and trick mastery",
+  "author": "cori",
+  "port": 8384,
+  "categories": ["utilities", "data"],
+  "description": "FPV Training Tracker is a self-hosted Progressive Web App for tracking FPV freestyle drone training. It monitors training sessions, trick mastery across 5 skill levels, phase progression through a 20-week schedule, equipment status, and trip preparation. Features a mobile-first dark-themed UI with offline support, auto-saving session forms, crash logging, and JSON import/export.",
+  "tipi_version": 2,
+  "min_tipi_version": "4.5.0",
+  "version": "sha-6c4b3b3",
+  "source": "https://github.com/cori/flowchart",
+  "website": "https://github.com/cori/flowchart",
+  "exposable": true,
+  "supported_architectures": ["arm64", "amd64"],
+  "created_at": 1738972800000,
+  "updated_at": 1738976400000,
+  "dynamic_config": true,
+  "form_fields": [
+    {
+      "type": "text",
+      "label": "Timezone",
+      "hint": "Timezone setting (e.g., America/New_York, Europe/Berlin)",
+      "required": false,
+      "env_variable": "TZ",
+      "default": "UTC"
+    }
+  ]
+}
