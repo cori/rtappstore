@@ -8,6 +8,7 @@
         { "key": "POSTGRES_DB", "value": "blinko" },
         { "key": "POSTGRES_USER", "value": "postgres" },
         { "key": "POSTGRES_PASSWORD", "value": "${BLINKO_DB_PASSWORD}" },
+        { "key": "PGDATA", "value": "/var/lib/postgresql/data/pgdata" },
         { "key": "TZ", "value": "${TZ}" }
       ],
       "volumes": [
