@@ -1,0 +1,43 @@
+{
+  "name": "Blinko",
+  "id": "blinko",
+  "available": true,
+  "short_desc": "AI-powered self-hosted personal note-taking app",
+  "author": "blinko-space",
+  "port": 1111,
+  "categories": [
+    "utilities",
+    "data"
+  ],
+  "description": "Blinko is an open-source, self-hosted AI note-taking tool prioritizing privacy. Features AI-powered RAG for natural language search, Markdown support, and multi-platform clients.",
+  "tipi_version": 1,
+  "version": "1.8.5",
+  "source": "https://github.com/blinkospace/blinko",
+  "website": "https://github.com/blinkospace/blinko",
+  "exposable": true,
+  "supported_architectures": [
+    "arm64",
+    "amd64"
+  ],
+  "created_at": 1739577600000,
+  "updated_at": 1739577600000,
+  "dynamic_config": true,
+  "form_fields": [
+    {
+      "type": "password",
+      "label": "NextAuth Secret",
+      "hint": "Secret key for session security. Use a long random string.",
+      "required": true,
+      "env_variable": "NEXTAUTH_SECRET",
+      "default": "change-me-to-a-random-string"
+    },
+    {
+      "type": "password",
+      "label": "Database Password",
+      "hint": "Password for the PostgreSQL database",
+      "required": true,
+      "env_variable": "BLINKO_DB_PASSWORD",
+      "default": "change-me-to-a-random-string"
+    }
+  ]
+}
