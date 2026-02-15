@@ -1,0 +1,46 @@
+{
+  "schemaVersion": 2,
+  "services": [
+    {
+      "name": "blinko-db",
+      "image": "postgres:14",
+      "environment": [
+        { "key": "POSTGRES_DB", "value": "blinko" },
+        { "key": "POSTGRES_USER", "value": "postgres" },
+        { "key": "POSTGRES_PASSWORD", "value": "${BLINKO_DB_PASSWORD}" },
+        { "key": "TZ", "value": "${TZ}" }
+      ],
+      "volumes": [
+        {
+          "hostPath": "${APP_DATA_DIR}/data/postgres",
+          "containerPath": "/var/lib/postgresql/data"
+        }
+      ],
+      "healthCheck": {
+        "test": "pg_isready -U postgres",
+        "interval": "10s",
+        "timeout": "5s",
+        "retries": 5
+      }
+    },
+    {
+      "name": "blinko",
+      "image": "blinkospace/blinko:1.8.5",
+      "isMain": true,
+      "internalPort": "1111",
+      "dependsOn": ["blinko-db"],
+      "environment": [
+        { "key": "NODE_ENV", "value": "production" },
+        { "key": "NEXTAUTH_SECRET", "value": "${NEXTAUTH_SECRET}" },
+        { "key": "NEXTAUTH_URL", "value": "http://localhost:1111" },
+        { "key": "DATABASE_URL", "value": "postgresql://postgres:${BLINKO_DB_PASSWORD}@blinko-db:5432/blinko" }
+      ],
+      "volumes": [
+        {
+          "hostPath": "${APP_DATA_DIR}/data/blinko",
+          "containerPath": "/app/.blinko"
+        }
+      ]
+    }
+  ]
+}
