@@ -3,7 +3,7 @@
   "services": [
     {
       "name": "fpv-tracker",
-      "image": "ghcr.io/cori/flowchart:sha-6c4b3b3",
+      "image": "ghcr.io/cori/flowchart:sha-50a15ac",
       "isMain": true,
       "environment": [
         { "key": "NODE_ENV", "value": "production" },
