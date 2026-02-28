@@ -1,0 +1,30 @@
+{
+  "name": "FPV Inventory",
+  "id": "fpv-inventory",
+  "available": true,
+  "short_desc": "Self-hosted inventory tracker for FPV drone parts with status tracking and photo support",
+  "author": "cori",
+  "port": 8385,
+  "categories": ["utilities", "data"],
+  "description": "FPV Inventory is a self-hosted web app for tracking your FPV drone parts and components. It lets you catalog parts with statuses (unused, in-use, broken, retired, lost), attach photos, view part history, and filter by location or build. Built with Deno and SQLite, it features a dark-themed mobile-friendly UI with no external dependencies.",
+  "tipi_version": 1,
+  "min_tipi_version": "4.5.0",
+  "version": "sha-3157f25",
+  "source": "https://github.com/cori/fpv-inventory",
+  "website": "https://github.com/cori/fpv-inventory",
+  "exposable": true,
+  "supported_architectures": ["arm64", "amd64"],
+  "created_at": 1740700800000,
+  "updated_at": 1740700800000,
+  "dynamic_config": true,
+  "form_fields": [
+    {
+      "type": "text",
+      "label": "Timezone",
+      "hint": "Timezone setting (e.g., America/New_York, Europe/Berlin)",
+      "required": false,
+      "env_variable": "TZ",
+      "default": "UTC"
+    }
+  ]
+}

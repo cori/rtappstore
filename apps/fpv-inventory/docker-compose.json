@@ -1,0 +1,23 @@
+{
+  "schemaVersion": 2,
+  "services": [
+    {
+      "name": "fpv-inventory",
+      "image": "ghcr.io/cori/fpv-inventory:sha-12ac6e9",
+      "isMain": true,
+      "environment": [
+        { "key": "DB_PATH", "value": "/data/fpv-inventory.db" },
+        { "key": "PHOTOS_DIR", "value": "/data/photos" },
+        { "key": "PORT", "value": "8000" },
+        { "key": "TZ", "value": "${TZ}" }
+      ],
+      "volumes": [
+        {
+          "hostPath": "${APP_DATA_DIR}/data",
+          "containerPath": "/data"
+        }
+      ],
+      "internalPort": "8000"
+    }
+  ]
+}
