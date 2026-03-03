@@ -17,6 +17,14 @@ Do not use or reference the old Runtipi format (YAML docker-compose, static conf
 
 This is a custom app store template for the **Runtipi** self-hosted application platform. It defines containerized applications that can be deployed through Runtipi's app store system.
 
+## Collaboration
+
+We collaborate through GitHub issues. Make sure the `gh` tool is installed and use it with the token in your `env`.
+
+```bash
+apt install gh -y
+```
+
 ## Commands
 
 ```bash
