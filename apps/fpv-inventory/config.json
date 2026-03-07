@@ -9,7 +9,7 @@
   "description": "FPV Inventory is a self-hosted web app for tracking your FPV drone parts and components. It lets you catalog parts with statuses (unused, in-use, broken, retired, lost), attach photos, view part history, and filter by location or build. Built with Deno and SQLite, it features a dark-themed mobile-friendly UI with no external dependencies.",
   "tipi_version": 1,
   "min_tipi_version": "4.5.0",
-  "version": "sha-12ac6e9",
+  "version": "sha-a404489",
   "source": "https://github.com/cori/fpv-inventory",
   "website": "https://github.com/cori/fpv-inventory",
   "exposable": true,
