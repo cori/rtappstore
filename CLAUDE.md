@@ -19,11 +19,13 @@ This is a custom app store template for the **Runtipi** self-hosted application 
 
 ## Collaboration
 
-We collaborate through GitHub issues. Make sure the `gh` tool is installed and use it with the token in your `env`.
+We collaborate through GitHub issues and pull requests. Make sure the `gh` tool is installed and use it with the token in your `env`.
 
 ```bash
 apt install gh -y
 ```
+
+**Always use a branch + PR workflow** — never push or commit directly to `main`. Use `gh api` or `gh pr create` to open a PR for review. Do not use the local git proxy; use `gh` with the token in env for all GitHub operations.
 
 ## Commands
 
