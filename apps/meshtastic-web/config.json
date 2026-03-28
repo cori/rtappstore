@@ -1,0 +1,25 @@
+{
+  "name": "Meshtastic Web",
+  "id": "meshtastic-web",
+  "available": true,
+  "short_desc": "Web interface for managing and monitoring Meshtastic mesh networking devices.",
+  "author": "meshtastic",
+  "port": 8386,
+  "categories": [
+    "network",
+    "utilities"
+  ],
+  "description": "The official Meshtastic web client for interacting with Meshtastic mesh networking devices. Configure nodes, send messages, view maps, and monitor your mesh network from any browser.",
+  "tipi_version": 1,
+  "version": "2.6.6",
+  "source": "https://github.com/meshtastic/web",
+  "exposable": true,
+  "supported_architectures": [
+    "arm64",
+    "amd64"
+  ],
+  "created_at": 1711612800000,
+  "updated_at": 1711612800000,
+  "dynamic_config": true,
+  "form_fields": []
+}

@@ -1,0 +1,11 @@
+{
+  "schemaVersion": 2,
+  "services": [
+    {
+      "name": "meshtastic-web",
+      "image": "ghcr.io/cori/meshtastic-web:2.6.6",
+      "isMain": true,
+      "internalPort": "8080"
+    }
+  ]
+}
