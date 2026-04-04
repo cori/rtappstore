@@ -1,0 +1,56 @@
+{
+  "schemaVersion": 2,
+  "services": [
+    {
+      "name": "omi-backend-redis",
+      "image": "redis:7-alpine",
+      "environment": [
+        { "key": "TZ", "value": "${TZ}" }
+      ],
+      "volumes": [
+        {
+          "hostPath": "${APP_DATA_DIR}/data/redis",
+          "containerPath": "/data"
+        }
+      ],
+      "healthCheck": {
+        "test": "redis-cli ping",
+        "interval": "10s",
+        "timeout": "5s",
+        "retries": 5
+      }
+    },
+    {
+      "name": "omi-backend",
+      "image": "omi-backend:0.11.224",
+      "isMain": true,
+      "internalPort": "8080",
+      "dependsOn": ["omi-backend-redis"],
+      "environment": [
+        { "key": "OPENAI_API_KEY", "value": "${OPENAI_API_KEY}" },
+        { "key": "ANTHROPIC_API_KEY", "value": "${ANTHROPIC_API_KEY}" },
+        { "key": "GROQ_API_KEY", "value": "${GROQ_API_KEY}" },
+        { "key": "DEEPGRAM_API_KEY", "value": "${DEEPGRAM_API_KEY}" },
+        { "key": "ENCRYPTION_SECRET", "value": "${ENCRYPTION_SECRET}" },
+        { "key": "ADMIN_KEY", "value": "${ADMIN_KEY}" },
+        { "key": "FIREBASE_PROJECT_ID", "value": "${FIREBASE_PROJECT_ID}" },
+        { "key": "FIREBASE_API_KEY", "value": "${FIREBASE_API_KEY}" },
+        { "key": "FIREBASE_AUTH_DOMAIN", "value": "${FIREBASE_AUTH_DOMAIN}" },
+        { "key": "SERVICE_ACCOUNT_JSON", "value": "${SERVICE_ACCOUNT_JSON}" },
+        { "key": "GOOGLE_CLOUD_PROJECT", "value": "${GOOGLE_CLOUD_PROJECT}" },
+        { "key": "PINECONE_API_KEY", "value": "${PINECONE_API_KEY}" },
+        { "key": "PINECONE_INDEX_NAME", "value": "${PINECONE_INDEX_NAME}" },
+        { "key": "REDIS_DB_HOST", "value": "omi-backend-redis" },
+        { "key": "REDIS_DB_PORT", "value": "6379" },
+        { "key": "REDIS_DB_PASSWORD", "value": "" },
+        { "key": "TZ", "value": "${TZ}" }
+      ],
+      "volumes": [
+        {
+          "hostPath": "${APP_DATA_DIR}/data/backend",
+          "containerPath": "/app/data"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,118 @@
+{
+  "name": "Omi Backend",
+  "id": "omi-backend",
+  "available": true,
+  "short_desc": "Self-hosted AI backend for the Omi wearable AI assistant",
+  "author": "BasedHardware",
+  "port": 47334,
+  "categories": [
+    "ai",
+    "utilities"
+  ],
+  "description": "Omi is an open-source AI wearable that records conversations, extracts memories, and integrates with AI models. This is the self-hosted backend providing the REST API, WebSocket audio transcription pipeline, conversation management, memory extraction, and integrations hub.",
+  "tipi_version": 1,
+  "version": "0.11.224",
+  "source": "https://github.com/BasedHardware/omi",
+  "website": "https://www.omi.me",
+  "exposable": true,
+  "supported_architectures": [
+    "arm64",
+    "amd64"
+  ],
+  "created_at": 1743724800000,
+  "updated_at": 1743724800000,
+  "dynamic_config": true,
+  "form_fields": [
+    {
+      "type": "password",
+      "label": "OpenAI API Key",
+      "hint": "Required for GPT-4 and other OpenAI models used for conversation processing and chat.",
+      "required": true,
+      "env_variable": "OPENAI_API_KEY"
+    },
+    {
+      "type": "password",
+      "label": "Deepgram API Key",
+      "hint": "Required for speech-to-text transcription. Get one at https://deepgram.com",
+      "required": true,
+      "env_variable": "DEEPGRAM_API_KEY"
+    },
+    {
+      "type": "password",
+      "label": "Encryption Secret",
+      "hint": "32-byte secret key used for AES-256-GCM encryption of stored data. Use a long random string.",
+      "required": true,
+      "env_variable": "ENCRYPTION_SECRET"
+    },
+    {
+      "type": "text",
+      "label": "Firebase Project ID",
+      "hint": "Your Google Firebase project ID (e.g. my-omi-project). Used as the primary database (Firestore).",
+      "required": true,
+      "env_variable": "FIREBASE_PROJECT_ID"
+    },
+    {
+      "type": "password",
+      "label": "Firebase API Key",
+      "hint": "Firebase web API key from your Firebase project settings.",
+      "required": true,
+      "env_variable": "FIREBASE_API_KEY"
+    },
+    {
+      "type": "text",
+      "label": "Firebase Auth Domain",
+      "hint": "Firebase auth domain, typically <project-id>.firebaseapp.com",
+      "required": true,
+      "env_variable": "FIREBASE_AUTH_DOMAIN"
+    },
+    {
+      "type": "password",
+      "label": "Google Service Account JSON (base64)",
+      "hint": "Base64-encoded Google Cloud service account JSON with Firestore and GCS access. Run: base64 service-account.json",
+      "required": true,
+      "env_variable": "SERVICE_ACCOUNT_JSON"
+    },
+    {
+      "type": "text",
+      "label": "Google Cloud Project ID",
+      "hint": "GCP project ID for Google Cloud Storage buckets. Usually the same as your Firebase project ID.",
+      "required": true,
+      "env_variable": "GOOGLE_CLOUD_PROJECT"
+    },
+    {
+      "type": "password",
+      "label": "Admin Key",
+      "hint": "Secret token for admin API access. Use a long random string.",
+      "required": true,
+      "env_variable": "ADMIN_KEY"
+    },
+    {
+      "type": "password",
+      "label": "Anthropic API Key",
+      "hint": "Optional. Enables Claude models for conversation processing.",
+      "required": false,
+      "env_variable": "ANTHROPIC_API_KEY"
+    },
+    {
+      "type": "password",
+      "label": "Groq API Key",
+      "hint": "Optional. Enables fast inference via Groq.",
+      "required": false,
+      "env_variable": "GROQ_API_KEY"
+    },
+    {
+      "type": "password",
+      "label": "Pinecone API Key",
+      "hint": "Optional. Enables vector semantic search for memories.",
+      "required": false,
+      "env_variable": "PINECONE_API_KEY"
+    },
+    {
+      "type": "text",
+      "label": "Pinecone Index Name",
+      "hint": "Optional. Pinecone index name for memory embeddings.",
+      "required": false,
+      "env_variable": "PINECONE_INDEX_NAME"
+    }
+  ]
+}
