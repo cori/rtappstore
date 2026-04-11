@@ -1,0 +1,15 @@
+{
+  "schemaVersion": 2,
+  "services": [
+    {
+      "name": "fpv-rate-profile-playground",
+      "image": "ghcr.io/cori/fpv-rate-profile-playground:sha-afc4f58",
+      "isMain": true,
+      "internalPort": "3000",
+      "environment": [
+        { "key": "NODE_ENV", "value": "production" },
+        { "key": "PORT", "value": "3000" }
+      ]
+    }
+  ]
+}
