@@ -1,0 +1,21 @@
+{
+  "schemaVersion": 2,
+  "services": [
+    {
+      "name": "hermes-webui",
+      "image": "ghcr.io/nesquena/hermes-webui:0.51.345",
+      "isMain": true,
+      "internalPort": "8787",
+      "environment": [
+        { "key": "HERMES_WEBUI_HOST", "value": "0.0.0.0" },
+        { "key": "HERMES_WEBUI_PORT", "value": "8787" },
+        { "key": "HERMES_WEBUI_STATE_DIR", "value": "/data" },
+        { "key": "HERMES_WEBUI_PASSWORD", "value": "${HERMES_WEBUI_PASSWORD}" },
+        { "key": "HERMES_WEBUI_DEFAULT_MODEL", "value": "${HERMES_WEBUI_DEFAULT_MODEL}" }
+      ],
+      "volumes": [
+        { "hostPath": "${APP_DATA_DIR}/data", "containerPath": "/data" }
+      ]
+    }
+  ]
+}

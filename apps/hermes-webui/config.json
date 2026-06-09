@@ -1,0 +1,44 @@
+{
+  "$schema": "../app-info-schema.json",
+  "name": "Hermes WebUI",
+  "id": "hermes-webui",
+  "available": true,
+  "short_desc": "Browser interface for Hermes Agent",
+  "author": "nesquena",
+  "port": 8787,
+  "categories": [
+    "ai",
+    "utilities"
+  ],
+  "description": "Hermes WebUI is a lightweight, dark-themed web interface for Hermes Agent. It provides near-complete parity with the CLI experience via a three-panel layout with session management, chat, and workspace file browsing. Use it in any browser, or pair it with the Hermes Agent Mobile iOS app by setting a password.",
+  "tipi_version": 1,
+  "version": "0.51.345",
+  "source": "https://github.com/nesquena/hermes-webui",
+  "website": "https://github.com/nesquena/hermes-webui",
+  "exposable": true,
+  "supported_architectures": [
+    "arm64",
+    "amd64"
+  ],
+  "created_at": 1780963200000,
+  "updated_at": 1780963200000,
+  "dynamic_config": true,
+  "form_fields": [
+    {
+      "type": "password",
+      "label": "Password",
+      "hint": "Password for web UI access. Required when using Hermes Agent Mobile (iOS app).",
+      "required": false,
+      "env_variable": "HERMES_WEBUI_PASSWORD",
+      "default": ""
+    },
+    {
+      "type": "text",
+      "label": "Default Model",
+      "hint": "Optional model override (e.g. claude-sonnet-4-6). Leave blank to use the agent's configured default.",
+      "required": false,
+      "env_variable": "HERMES_WEBUI_DEFAULT_MODEL",
+      "default": ""
+    }
+  ]
+}
