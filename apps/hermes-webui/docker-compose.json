@@ -13,6 +13,7 @@
         { "key": "HERMES_WEBUI_CHAT_BACKEND", "value": "gateway" },
         { "key": "HERMES_WEBUI_SKIP_ONBOARDING", "value": "1" },
         { "key": "HERMES_WEBUI_GATEWAY_BASE_URL", "value": "${HERMES_WEBUI_GATEWAY_BASE_URL}" },
+        { "key": "HERMES_WEBUI_GATEWAY_API_KEY", "value": "${HERMES_WEBUI_GATEWAY_API_KEY}" },
         { "key": "HERMES_WEBUI_PASSWORD", "value": "${HERMES_WEBUI_PASSWORD}" },
         { "key": "HERMES_WEBUI_DEFAULT_MODEL", "value": "${HERMES_WEBUI_DEFAULT_MODEL}" }
       ],

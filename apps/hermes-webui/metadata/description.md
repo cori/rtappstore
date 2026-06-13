@@ -13,8 +13,9 @@ A lightweight browser interface for [Hermes Agent](https://github.com/nesquena/h
 
 | Field | Description |
 |---|---|
-| **Gateway URL** | URL of your already-running Hermes Agent gateway (e.g. `http://192.168.1.10:8642`). Required. |
-| **Password** | Protects the UI with HTTP authentication. Required when connecting from Hermes Agent Mobile. |
+| **Gateway URL** | URL of your already-running Hermes Agent gateway (e.g. `http://192.168.1.10:8642`). Use the **gateway** port (default `8642`), not the **dashboard** port (`9119`). Required. |
+| **Gateway API Key** | Bearer token that matches the gateway's `API_SERVER_KEY` (typically set in `~/.hermes/.env` on the gateway host). Required if the gateway enforces auth — without it, sessions and model lists silently come back empty and chat messages fail. |
+| **WebUI Password** | Protects this UI with HTTP authentication (separate from the gateway key). Required when connecting from Hermes Agent Mobile. |
 | **Default Model** | Override the agent's default model (e.g. `claude-sonnet-4-6`). Leave blank to use the agent's own default. |
 
 ## Usage with Hermes Agent Mobile (iOS)
