@@ -1,0 +1,102 @@
+name: Copilot review and auto-merge
+
+on:
+  pull_request:
+    types: [opened, ready_for_review]
+  pull_request_review:
+    types: [submitted]
+
+permissions:
+  contents: read
+
+jobs:
+  request-copilot-review:
+    if: github.event_name == 'pull_request' && github.event.pull_request.draft == false
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
+    steps:
+      - name: Request Copilot review
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          OWNER: ${{ github.repository_owner }}
+          NAME: ${{ github.event.repository.name }}
+          PR_NODE_ID: ${{ github.event.pull_request.node_id }}
+        run: |
+          # Copilot can't be requested via the REST `requested_reviewers`
+          # endpoint (it rejects non-collaborators). Use the GraphQL
+          # `suggestedActors` lookup to find Copilot's bot id, then call
+          # `requestReviews`. This mirrors GitHub's official MCP behavior.
+          copilot_id=$(gh api graphql \
+            -F owner="$OWNER" \
+            -F name="$NAME" \
+            -f query='
+              query($owner: String!, $name: String!) {
+                repository(owner: $owner, name: $name) {
+                  suggestedActors(capabilities: [CAN_BE_ASSIGNED], first: 100) {
+                    nodes {
+                      login
+                      ... on Bot { id }
+                      ... on User { id }
+                    }
+                  }
+                }
+              }
+            ' \
+            --jq '[.data.repository.suggestedActors.nodes[] | select(.login == "Copilot" or .login == "Copilot[bot]" or .login == "copilot-pull-request-reviewer" or .login == "copilot-pull-request-reviewer[bot]") | .id] | first // ""')
+
+          if [ -z "$copilot_id" ]; then
+            echo "::warning::Copilot reviewer not available on this repo. Enable Copilot code review in repo settings."
+            exit 0
+          fi
+
+          gh api graphql \
+            -F pullRequestId="$PR_NODE_ID" \
+            -F userId="$copilot_id" \
+            -f query='
+              mutation($pullRequestId: ID!, $userId: ID!) {
+                requestReviews(input: {pullRequestId: $pullRequestId, userIds: [$userId]}) {
+                  pullRequest { id }
+                }
+              }
+            '
+
+  auto-merge-on-clean-copilot-review:
+    if: >-
+      github.event_name == 'pull_request_review' &&
+      github.event.review.user.login == 'copilot-pull-request-reviewer[bot]' &&
+      github.event.pull_request.draft == false
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - name: Decide whether Copilot requested any changes
+        id: check
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO: ${{ github.repository }}
+          PR: ${{ github.event.pull_request.number }}
+          REVIEW_ID: ${{ github.event.review.id }}
+          REVIEW_STATE: ${{ github.event.review.state }}
+        run: |
+          if [ "$REVIEW_STATE" = "changes_requested" ]; then
+            echo "Copilot requested changes; skipping auto-merge."
+            echo "merge=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          inline_count=$(gh api "repos/$REPO/pulls/$PR/reviews/$REVIEW_ID/comments" --jq 'length')
+          if [ "$inline_count" -gt 0 ]; then
+            echo "Copilot left $inline_count inline comment(s); skipping auto-merge."
+            echo "merge=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "Copilot review is clean; enabling auto-merge."
+            echo "merge=true" >> "$GITHUB_OUTPUT"
+          fi
+      - name: Enable auto-merge
+        if: steps.check.outputs.merge == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO: ${{ github.repository }}
+          PR: ${{ github.event.pull_request.number }}
+        run: gh pr merge "$PR" --repo "$REPO" --squash --auto
