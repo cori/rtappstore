@@ -3,7 +3,7 @@
   "services": [
     {
       "name": "flowchart",
-      "image": "ghcr.io/cori/flowchart:sha-9069066",
+      "image": "ghcr.io/cori/flowchart:sha-e1df4dc",
       "isMain": true,
       "environment": [
         { "key": "NODE_ENV", "value": "production" },
