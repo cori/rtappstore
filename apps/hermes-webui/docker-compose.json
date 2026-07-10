@@ -3,7 +3,7 @@
   "services": [
     {
       "name": "hermes-webui",
-      "image": "ghcr.io/nesquena/hermes-webui:0.51.345",
+      "image": "ghcr.io/nesquena/hermes-webui:0.52.0",
       "isMain": true,
       "internalPort": "8787",
       "environment": [
