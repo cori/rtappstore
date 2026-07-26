@@ -3,7 +3,7 @@
   "services": [
     {
       "name": "fpv-inventory",
-      "image": "ghcr.io/cori/fpv-inventory:sha-7161e58",
+      "image": "ghcr.io/cori/fpv-inventory:sha-4745429",
       "isMain": true,
       "environment": [
         { "key": "DB_PATH", "value": "/data/fpv-inventory.db" },
