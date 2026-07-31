@@ -43,6 +43,10 @@
         {
           "key": "SEARXNG_REDIS_URL",
           "value": "redis://searxng-valkey:6379/0"
+        },
+        {
+          "key": "BRAVE_API_KEY",
+          "value": "${BRAVE_API_KEY}"
         }
       ],
       "volumes": [

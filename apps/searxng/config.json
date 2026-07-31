@@ -6,12 +6,12 @@
   "dynamic_config": true,
   "port": 8127,
   "id": "searxng",
-  "tipi_version": 1,
+  "tipi_version": 2,
   "version": "2026.7.31-057a77168",
   "categories": [
     "social"
   ],
-  "description": "SearXNG is a free internet metasearch engine which aggregates results from various search services and databases. Users are neither tracked nor profiled. This version includes Valkey (Redis) for result caching, reducing rate-limiting from upstream engines.",
+  "description": "SearXNG is a free internet metasearch engine which aggregates results from various search services and databases. Users are neither tracked nor profiled. This version includes Valkey (Redis) for result caching, reducing rate-limiting from upstream engines. Scrape-based engines (DuckDuckGo, Startpage, Brave) are disabled; the Brave Search API engine is wired in as a reliable primary.",
   "short_desc": "Privacy-respecting, hackable metasearch engine",
   "author": "searxng",
   "source": "https://github.com/searxng/searxng",
@@ -21,6 +21,14 @@
       "label": "SearXNG Secret Key",
       "min": 32,
       "env_variable": "SEARXNG_SECRET_KEY"
+    },
+    {
+      "type": "password",
+      "label": "Brave Search API Key",
+      "hint": "API key from api-dashboard.search.brave.com. Optional but recommended — enables the Brave API engine for reliable results without rate-limiting.",
+      "required": false,
+      "env_variable": "BRAVE_API_KEY",
+      "default": ""
     }
   ],
   "supported_architectures": [

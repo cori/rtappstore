@@ -9,5 +9,22 @@ server:
   limiter: false
   image_proxy: true
 
-redis:
+valkey:
   url: redis://searxng-valkey:6379/0
+
+engines:
+  - name: duckduckgo
+    disabled: true
+  - name: startpage
+    disabled: true
+  - name: wikidata
+    disabled: true
+  - name: brave
+    disabled: true
+  - name: braveapi
+    engine: braveapi
+    categories: [general, web]
+    shortcut: brapi
+    api_key: "${BRAVE_API_KEY}"
+    brave_category: search
+    inactive: false
