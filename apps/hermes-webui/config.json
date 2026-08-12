@@ -11,17 +11,17 @@
     "utilities"
   ],
   "description": "Hermes WebUI is a lightweight, dark-themed web interface that connects to your existing Hermes Agent gateway, sharing sessions and history with the CLI and other interfaces. It provides near-complete parity with the CLI experience via a three-panel layout with session management, chat, and workspace file browsing. Use it in any browser, or pair it with the Hermes Agent Mobile iOS app by setting a password.",
-  "tipi_version": 5,
-  "version": "0.52.0",
-  "source": "https://github.com/nesquena/hermes-webui",
-  "website": "https://github.com/nesquena/hermes-webui",
+  "tipi_version": 6,
+  "version": "0.52.106",
+  "source": "https://github.com/cori/hermes-webui",
+  "website": "https://github.com/cori/hermes-webui",
   "exposable": true,
   "supported_architectures": [
     "arm64",
     "amd64"
   ],
   "created_at": 1780963200000,
-  "updated_at": 1783697796646,
+  "updated_at": 1786463511241,
   "dynamic_config": true,
   "form_fields": [
     {
