@@ -52,8 +52,8 @@ jobs:
             echo ""
             echo "Auto-generated on $(date -u +"%Y-%m-%d %H:%M UTC") — do not edit manually."
             echo ""
-            echo "| App | Name | Version | Author | Categories | Port | Description |"
-            echo "|-----|------|---------|--------|------------|------|-------------|"
+            echo "| App | Name | Version | Author | Categories | Port | Source Code | Container Image | Description |"
+            echo "|-----|------|---------|--------|------------|------|-------------|-----------------|-------------|"
             
             for dir in apps/*/; do
               app_id=$(basename "$dir")
@@ -68,20 +68,51 @@ jobs:
               port=$(jq -r '.port' "$cfg")
               short_desc=$(jq -r '.short_desc' "$cfg")
               categories=$(jq -r '.categories | join(", ")' "$cfg")
+              source=$(jq -r '.source' "$cfg")
+              website=$(jq -r '.website // .source' "$cfg")
               
-              # GitHub URL for the app directory
-              url="https://github.com/cori/rtappstore/tree/main/apps/$app_id"
+              # Get container image from docker-compose.json
+              compose="$dir/docker-compose.json"
+              image=""
+              [[ -f "$compose" ]] && image=$(jq -r '.services[0].image // ""' "$compose" 2>/dev/null)
               
-              printf "| [%s](%s) | %s | %s | %s | %s | %s | %s |\n" \
-                "$app_id" "$url" "$name" "$version" "$author" "$categories" "$port" "$short_desc"
+              # Build source code link
+              if [[ "$source" == "$website" ]]; then
+                source_link="[$source]($source)"
+              else
+                source_link="[code]($source) · [website]($website)"
+              fi
+              
+              # Build container image link (extract registry + repo from image)
+              image_link=""
+              if [[ -n "$image" && "$image" != "null" ]]; then
+                # Parse registry/repo from image (e.g., ghcr.io/user/repo:tag -> ghcr.io/user/repo)
+                registry_repo=$(echo "$image" | sed 's|:.*$||')
+                if [[ "$registry_repo" == ghcr.io/* ]]; then
+                  image_link="[ghcr.io]($registry_repo)"
+                elif [[ "$registry_repo" == docker.io/* ]]; then
+                  image_link="[docker.io]($registry_repo)"
+                elif [[ "$registry_repo" == *"/"* ]]; then
+                  image_link="[$registry_repo](https://$registry_repo)"
+                else
+                  image_link="[$registry_repo](https://hub.docker.com/r/$registry_repo)"
+                fi
+              fi
+              
+              # GitHub URL for the app directory in this repo
+              dir_url="https://github.com/cori/rtappstore/tree/main/apps/$app_id"
+              
+              printf "| [%s](%s) | %s | %s | %s | %s | %s | %s | %s | %s |\n" \
+                "$app_id" "$dir_url" "$name" "$version" "$author" "$categories" "$port" "$source_link" "$image_link" "$short_desc"
             done
             
             echo ""
             echo "---"
             echo ""
             echo "## Legend"
-            echo "- **App**: Directory name (link to app source)"
-            echo "- **Categories**: Includes `runtipi` = valid Runtipi v2 dynamic-config app (not official endorsement)"
+            echo "- **App**: Directory name (link to app config in this repo)"
+            echo "- **Source Code**: Link to upstream source repository"
+            echo "- **Container Image**: Link to container registry (GHCR, Docker Hub, etc.)"
             echo "- **Version**: Docker image version (matches config.json)"
           } > "$INDEX_FILE"
 
