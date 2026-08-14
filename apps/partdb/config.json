@@ -7,8 +7,7 @@
   "port": 8380,
   "categories": [
     "data",
-    "utilities",
-    "runtipi"
+    "utilities"
   ],
   "description": "Part-DB is an open-source web-based database for managing electronic components. It provides inventory management, datasheet storage, and part organization for makers, hobbyists, and small businesses.",
   "tipi_version": 2,

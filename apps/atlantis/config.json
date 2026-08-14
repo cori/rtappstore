@@ -8,8 +8,7 @@
   "port": 8240,
   "categories": [
     "utilities",
-    "data",
-    "runtipi"
+    "data"
   ],
   "description": "Atlantis is a self-hosted platform for creating and managing Mermaid.js diagrams, notes, and knowledge. Features include a modern split-pane editor with live preview, interactive todo lists, full Mermaid.js support, local SQLite persistence, dark/light mode, favorites, search, backup/restore, and diagram version checkpoints.",
   "tipi_version": 1,

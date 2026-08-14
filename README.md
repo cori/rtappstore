@@ -23,7 +23,7 @@ apps/
 
 See [apps/INDEX.md](apps/INDEX.md) for a navigable list of all apps with install links, versions, and categories.
 
-> **Note on `runtipi` category**: All apps in this store are tagged `runtipi` because they are valid, installable Runtipi v2 dynamic-config applications. This tag means "this works with Runtipi" — it does **not** imply official endorsement, blessing, or support from the Runtipi team. This store is for my reference and anyone who finds it useful.
+> **Note on categories**: All apps in this store use standard Runtipi categories (e.g., `utilities`, `data`, `ai`, `social`). There is no special `runtipi` category — the `runtipi` tag in the index simply means "valid Runtipi v2 dynamic-config app" (not official endorsement).
 
 ## Adding Apps
 

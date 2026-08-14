@@ -8,8 +8,7 @@
   "port": 7920,
   "categories": [
     "utilities",
-    "data",
-    "runtipi"
+    "data"
   ],
   "description": "Filament Profiles is a self-hosted web application for managing 3D printer filament settings. Track optimal print configurations including temperatures, pressure advance, flow rates, and speeds for different filaments across various machines and build plates.",
   "tipi_version": 11,

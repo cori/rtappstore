@@ -6,8 +6,7 @@
   "author": "traefik",
   "port": 8382,
   "categories": [
-    "utilities",
-    "runtipi"
+    "utilities"
   ],
   "description": "Tiny Go webserver that prints OS information and HTTP request to output.",
   "tipi_version": 2,

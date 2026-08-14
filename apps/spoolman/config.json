@@ -8,8 +8,7 @@
   "port": 7912,
   "categories": [
     "utilities",
-    "data",
-    "runtipi"
+    "data"
   ],
   "description": "Spoolman is a self-hosted web service for managing 3D printer filament spool inventory. It automatically tracks spool weights as printing progresses and integrates with OctoPrint, Klipper/Moonraker, and Home Assistant.",
   "tipi_version": 11,
