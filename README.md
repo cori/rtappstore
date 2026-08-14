@@ -1,31 +1,50 @@
-# Example App Store Template
+# cori/rtappstore — Personal Runtipi App Store
 
-This repository serves as a template for creating your own custom app store for the Runtipi platform. Use this as a starting point to create and share your own collection of applications.
+A custom app store for [Runtipi](https://runtipi.io) containing apps I use and maintain. This is a personal collection — not an official Runtipi store.
 
 ## Repository Structure
 
-- **apps/**: Contains individual app directories
+```
+apps/
+├── atlantis/              # Infrastructure as code visualization
+├── blinko/                # Note-taking / bookmarking
+├── filament-profiles/     # 3D printing filament profiles (cori)
+├── flowchart/             # Flowchart/diagram tool (cori)
+├── fpv-inventory/         # FPV drone parts inventory (cori)
+├── hermes-webui/          # Hermes Agent web UI fork (cori)
+├── partdb/                # Electronic parts inventory
+├── searxng/               # Privacy-respecting metasearch
+├── spoolman/              # Filament spool management
+├── whoami/                # Traefik debugging endpoint
+└── INDEX.md               # Auto-generated app index (updated on PR merge)
+```
 
-  - Each app has its own folder (e.g., `whoami/`) with the following structure:
-    - `config.json`: App configuration file
-    - `docker-compose.json`: Docker setup for the app
-    - `metadata/`: Contains app visuals and descriptions
-      - `description.md`: Markdown description of the app
-      - `logo.jpg`: App logo image
+## App Index
 
-- **tests/**: Contains test files for the app store
+See [apps/INDEX.md](apps/INDEX.md) for a navigable list of all apps with install links, versions, and categories.
 
-  - `apps.test.ts`: Test suite for validating apps
+> **Note on categories**: All apps in this store use standard Runtipi categories (e.g., `utilities`, `data`, `ai`, `social`). There is no special `runtipi` category — the `runtipi` tag in the index simply means "valid Runtipi v2 dynamic-config app" (not official endorsement).
 
-## Getting Started
+## Adding Apps
 
-This repository is intended to serve as a template for creating your own app store. Follow these steps to get started:
+Each app follows the Runtipi v2 dynamic config schema:
 
-1. Click the "Use this template" button to create a new repository based on this template
-2. Customize the apps or add your own app folders in the `apps/` directory
-3. Test your app store by using it with Runtipi
+```
+apps/{app-id}/
+├── config.json           # App metadata (validated against @runtipi/common)
+├── docker-compose.json   # Runtipi v2 schema (schemaVersion: 2, dynamic_config: true)
+└── metadata/
+    ├── description.md
+    └── logo.jpg
+```
 
-## Documentation
+Run `bun test` before committing — tests validate the v2 schema.
 
-For detailed instructions on creating your own app store, please refer to the official guide:
-[Create Your Own App Store Guide](https://runtipi.io/docs/guides/create-your-own-app-store)
+## Automation
+
+- **Renovate** monitors Docker image versions and bumps `tipi_version` + `version` automatically
+- **GitHub Action** (`.github/workflows/update-index.yml`) updates `apps/INDEX.md` when a PR adds or removes an app directory (not on version bumps)
+
+## License
+
+MIT — see [LICENSE](LICENSE)
