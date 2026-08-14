@@ -6,6 +6,13 @@ on:
     paths:
       - 'apps/**'
       - '.github/workflows/update-index.yml'
+  workflow_dispatch:
+    inputs:
+      force:
+        description: 'Force regeneration even if no app dir changes'
+        type: boolean
+        default: false
+        required: false
 
 jobs:
   update-index:
@@ -44,7 +51,7 @@ jobs:
           echo "changed=$(( ADDED + REMOVED ))" >> $GITHUB_OUTPUT
 
       - name: Generate INDEX.md
-        if: steps.changes.outputs.changed != '0'
+        if: steps.changes.outputs.changed != '0' || github.event.inputs.force == 'true'
         run: |
           INDEX_FILE="apps/INDEX.md"
           {
