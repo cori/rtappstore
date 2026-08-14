@@ -7,7 +7,8 @@
   "port": 1111,
   "categories": [
     "utilities",
-    "data"
+    "data",
+    "runtipi"
   ],
   "description": "Blinko is an open-source, self-hosted AI note-taking tool prioritizing privacy. Features AI-powered RAG for natural language search, Markdown support, and multi-platform clients.",
   "tipi_version": 1,

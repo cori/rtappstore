@@ -9,7 +9,8 @@
   "tipi_version": 2,
   "version": "2026.7.31-057a77168",
   "categories": [
-    "social"
+    "social",
+    "runtipi"
   ],
   "description": "SearXNG is a free internet metasearch engine which aggregates results from various search services and databases. Users are neither tracked nor profiled. This version includes Valkey (Redis) for result caching, reducing rate-limiting from upstream engines. Scrape-based engines (DuckDuckGo, Startpage, Brave) are disabled; the Brave Search API engine is wired in as a reliable primary.",
   "short_desc": "Privacy-respecting, hackable metasearch engine",

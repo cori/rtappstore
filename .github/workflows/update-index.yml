@@ -1,0 +1,95 @@
+name: Update App Index
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'apps/**'
+      - '.github/workflows/update-index.yml'
+
+jobs:
+  update-index:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
+
+      - name: Install dependencies
+        run: bun install
+
+      - name: Detect app directory changes
+        id: changes
+        run: |
+          # Get list of app directories currently in main
+          git ls-tree -d --name-only HEAD apps/ | sort > /tmp/current_apps.txt
+          
+          # Get list of app directories before this push
+          git ls-tree -d --name-only HEAD~1 apps/ 2>/dev/null | sort > /tmp/previous_apps.txt || touch /tmp/previous_apps.txt
+          
+          # Find added/removed directories
+          comm -13 /tmp/previous_apps.txt /tmp/current_apps.txt > /tmp/added.txt || true
+          comm -23 /tmp/previous_apps.txt /tmp/current_apps.txt > /tmp/removed.txt || true
+          
+          ADDED=$(cat /tmp/added.txt | wc -l)
+          REMOVED=$(cat /tmp/removed.txt | wc -l)
+          
+          echo "added=$(cat /tmp/added.txt | tr '\n' ',' | sed 's/,$//')" >> $GITHUB_OUTPUT
+          echo "removed=$(cat /tmp/removed.txt | tr '\n' ',' | sed 's/,$//')" >> $GITHUB_OUTPUT
+          echo "changed=$(( ADDED + REMOVED ))" >> $GITHUB_OUTPUT
+
+      - name: Generate INDEX.md
+        if: steps.changes.outputs.changed != '0'
+        run: |
+          INDEX_FILE="apps/INDEX.md"
+          {
+            echo "# App Index"
+            echo ""
+            echo "Auto-generated on $(date -u +"%Y-%m-%d %H:%M UTC") — do not edit manually."
+            echo ""
+            echo "| App | Name | Version | Author | Categories | Port | Description |"
+            echo "|-----|------|---------|--------|------------|------|-------------|"
+            
+            for dir in apps/*/; do
+              app_id=$(basename "$dir")
+              [[ "$app_id" == "INDEX.md" ]] && continue
+              
+              cfg="$dir/config.json"
+              [[ -f "$cfg" ]] || continue
+              
+              name=$(jq -r '.name' "$cfg")
+              version=$(jq -r '.version' "$cfg")
+              author=$(jq -r '.author' "$cfg")
+              port=$(jq -r '.port' "$cfg")
+              short_desc=$(jq -r '.short_desc' "$cfg")
+              categories=$(jq -r '.categories | join(", ")' "$cfg")
+              
+              # GitHub URL for the app directory
+              url="https://github.com/cori/rtappstore/tree/main/apps/$app_id"
+              
+              printf "| [%s](%s) | %s | %s | %s | %s | %s | %s |\n" \
+                "$app_id" "$url" "$name" "$version" "$author" "$categories" "$port" "$short_desc"
+            done
+            
+            echo ""
+            echo "---"
+            echo ""
+            echo "## Legend"
+            echo "- **App**: Directory name (link to app source)"
+            echo "- **Categories**: Includes `runtipi` = valid Runtipi v2 dynamic-config app (not official endorsement)"
+            echo "- **Version**: Docker image version (matches config.json)"
+          } > "$INDEX_FILE"
+
+      - name: Commit INDEX.md
+        if: steps.changes.outputs.changed != '0'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add apps/INDEX.md
+          git commit -m "chore: update app index (added: ${{ steps.changes.outputs.added }}, removed: ${{ steps.changes.outputs.removed }})"
+          git push
