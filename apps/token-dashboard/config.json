@@ -10,7 +10,7 @@
     "data"
   ],
   "description": "Token Dashboard is a self-hosted analytics dashboard for Hermes LLM token usage. It reads the same `token_calls.db` that Hermes writes during agent turns, and renders per-provider cost, latency, peak-burn, error timelines, and a model-picker-watch panel that surfaces tracked-model health. Built with Python stdlib + PyYAML, served via a small threaded HTTP server with periodic regeneration. No external dependencies, no telemetry.",
-  "tipi_version": 1,
+  "tipi_version": 2,
   "min_tipi_version": "4.5.0",
   "version": "sha-5c3a99c",
   "source": "https://github.com/cori/token-dashboard",
@@ -21,7 +21,7 @@
     "amd64"
   ],
   "created_at": 1786767879918,
-  "updated_at": 1786770564094,
+  "updated_at": 1786797296000,
   "dynamic_config": true,
   "form_fields": [
     {
