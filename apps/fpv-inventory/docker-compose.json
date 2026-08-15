@@ -3,7 +3,7 @@
   "services": [
     {
       "name": "fpv-inventory",
-      "image": "ghcr.io/fpvibe/fpv-inventory:sha-fd32cd7",
+      "image": "ghcr.io/fpvibe/fpv-inventory:sha-2fdd9b9",
       "isMain": true,
       "environment": [
         {
