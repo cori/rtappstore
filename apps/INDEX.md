@@ -1,6 +1,6 @@
 # App Index
 
-Auto-generated on 2026-08-14 20:13 UTC — do not edit manually.
+Auto-generated on 2026-08-15 12:01 UTC — do not edit manually.
 
 | App | Name | Version | Author | Categories | Port | Source Code | Container Image | Description |
 |-----|------|---------|--------|------------|------|-------------|-----------------|-------------|
@@ -13,6 +13,7 @@ Auto-generated on 2026-08-14 20:13 UTC — do not edit manually.
 | [partdb](https://github.com/cori/rtappstore/tree/main/apps/partdb) | Part-DB | latest | Part-DB | data, utilities | 8380 | [https://github.com/Part-DB/Part-DB-server](https://github.com/Part-DB/Part-DB-server) | [mariadb](https://hub.docker.com/r/mariadb) | Open Source Electronic Parts Inventory Management |
 | [searxng](https://github.com/cori/rtappstore/tree/main/apps/searxng) | SearXNG | 2026.7.31-057a77168 | searxng | social | 8127 | [https://github.com/searxng/searxng](https://github.com/searxng/searxng) | [valkey/valkey](https://valkey/valkey) | Privacy-respecting, hackable metasearch engine |
 | [spoolman](https://github.com/cori/rtappstore/tree/main/apps/spoolman) | Spoolman | 0.23.0 | Donkie | utilities, data | 7912 | [https://github.com/Donkie/Spoolman](https://github.com/Donkie/Spoolman) | [ghcr.io](ghcr.io/donkie/spoolman) | Self-hosted 3D printer filament spool inventory management |
+| [token-dashboard](https://github.com/cori/rtappstore/tree/main/apps/token-dashboard) | Token Dashboard | sha-5c3a99c | cori | utilities, data | 8850 | [https://github.com/cori/token-dashboard](https://github.com/cori/token-dashboard) | [ghcr.io](ghcr.io/cori/token-dashboard) | Self-hosted dashboard for Hermes token-usage analytics with cost, latency, and model health |
 | [whoami](https://github.com/cori/rtappstore/tree/main/apps/whoami) | Whoami | v1.11.0 | traefik | utilities | 8382 | [https://github.com/traefik/whoami](https://github.com/traefik/whoami) | [traefik/whoami](https://traefik/whoami) | Tiny Go server that prints os information and HTTP request to output. |
 
 ---
