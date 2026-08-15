@@ -1,0 +1,44 @@
+{
+  "name": "Token Dashboard",
+  "id": "token-dashboard",
+  "available": true,
+  "short_desc": "Self-hosted dashboard for Hermes token-usage analytics with cost, latency, and model health",
+  "author": "cori",
+  "port": 8850,
+  "categories": [
+    "utilities",
+    "data"
+  ],
+  "description": "Token Dashboard is a self-hosted analytics dashboard for Hermes LLM token usage. It reads the same `token_calls.db` that Hermes writes during agent turns, and renders per-provider cost, latency, peak-burn, error timelines, and a model-picker-watch panel that surfaces tracked-model health. Built with Python stdlib + PyYAML, served via a small threaded HTTP server with periodic regeneration. No external dependencies, no telemetry.",
+  "tipi_version": 1,
+  "min_tipi_version": "4.5.0",
+  "version": "sha-5c3a99c",
+  "source": "https://github.com/cori/token-dashboard",
+  "website": "https://github.com/cori/token-dashboard",
+  "exposable": true,
+  "supported_architectures": [
+    "arm64",
+    "amd64"
+  ],
+  "created_at": 1786767879918,
+  "updated_at": 1786770564094,
+  "dynamic_config": true,
+  "form_fields": [
+    {
+      "type": "text",
+      "label": "Timezone",
+      "hint": "Timezone setting (e.g., America/New_York, Europe/Berlin)",
+      "required": false,
+      "env_variable": "TZ",
+      "default": "UTC"
+    },
+    {
+      "type": "text",
+      "label": "Refresh Interval (seconds)",
+      "hint": "How often to regenerate the dashboard from the DB. 300 = 5 min.",
+      "required": false,
+      "env_variable": "REFRESH_INTERVAL",
+      "default": "300"
+    }
+  ]
+}

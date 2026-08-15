@@ -1,0 +1,43 @@
+{
+  "schemaVersion": 2,
+  "services": [
+    {
+      "name": "token-dashboard",
+      "image": "ghcr.io/cori/token-dashboard:sha-5c3a99c",
+      "isMain": true,
+      "environment": [
+        {
+          "key": "DATA_DIR",
+          "value": "/data"
+        },
+        {
+          "key": "DB_PATH",
+          "value": "/data/token_calls.db"
+        },
+        {
+          "key": "RATE_TABLE_PATH",
+          "value": "/data/rate_table.yaml"
+        },
+        {
+          "key": "PORT",
+          "value": "8000"
+        },
+        {
+          "key": "REFRESH_INTERVAL",
+          "value": "${REFRESH_INTERVAL}"
+        },
+        {
+          "key": "TZ",
+          "value": "${TZ}"
+        }
+      ],
+      "volumes": [
+        {
+          "hostPath": "${APP_DATA_DIR}/data",
+          "containerPath": "/data"
+        }
+      ],
+      "internalPort": "8000"
+    }
+  ]
+}
