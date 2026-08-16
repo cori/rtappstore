@@ -1,0 +1,48 @@
+{
+  "schemaVersion": 2,
+  "services": [
+    {
+      "name": "print-gallery",
+      "image": "gallery-base:latest",
+      "isMain": true,
+      "environment": [
+        {
+          "key": "GALLERY_PROCESSOR",
+          "value": "timelapse_processor"
+        },
+        {
+          "key": "SOURCE_PATH",
+          "value": "/data"
+        },
+        {
+          "key": "PORT",
+          "value": "8000"
+        },
+        {
+          "key": "TITLE",
+          "value": "3D Print Timelapse History"
+        },
+        {
+          "key": "REFRESH_INTERVAL",
+          "value": "${REFRESH_INTERVAL}"
+        },
+        {
+          "key": "TZ",
+          "value": "${TZ}"
+        },
+        {
+          "key": "PUBLIC_DOMAIN",
+          "value": "${PUBLIC_DOMAIN}"
+        }
+      ],
+      "volumes": [
+        {
+          "hostPath": "/home/cori/recent_timelapse_combo",
+          "containerPath": "/data",
+          "readOnly": true
+        }
+      ],
+      "internalPort": "8000"
+    }
+  ]
+}
