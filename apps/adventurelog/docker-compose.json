@@ -1,0 +1,54 @@
+{
+  "$schema": "../dynamic-compose-schema.json",
+  "schemaVersion": 2,
+  "services": [
+    {
+      "name": "adventurelog-db",
+      "image": "postgis/postgis:16-3.5",
+      "environment": [
+        { "key": "POSTGRES_DB", "value": "database" },
+        { "key": "POSTGRES_USER", "value": "adventure" },
+        { "key": "POSTGRES_PASSWORD", "value": "${POSTGRES_PASSWORD}" },
+        { "key": "TZ", "value": "${TZ}" }
+      ],
+      "volumes": [
+        {
+          "hostPath": "${APP_DATA_DIR}/data/postgres",
+          "containerPath": "/var/lib/postgresql/data/"
+        }
+      ],
+      "healthCheck": {
+        "test": "pg_isready -U adventure -d database",
+        "interval": "10s",
+        "timeout": "5s",
+        "retries": 5
+      }
+    },
+    {
+      "name": "adventurelog",
+      "image": "ghcr.io/seanmorley15/adventurelog:v0.13.0",
+      "isMain": true,
+      "internalPort": "80",
+      "dependsOn": ["adventurelog-db"],
+      "environment": [
+        { "key": "SITE_URL", "value": "${SITE_URL}" },
+        { "key": "POSTGRES_PASSWORD", "value": "${POSTGRES_PASSWORD}" },
+        { "key": "PGHOST", "value": "adventurelog-db" },
+        { "key": "POSTGRES_DB", "value": "database" },
+        { "key": "POSTGRES_USER", "value": "adventure" },
+        { "key": "PORT", "value": "3000" },
+        { "key": "DJANGO_ADMIN_USERNAME", "value": "${DJANGO_ADMIN_USERNAME}" },
+        { "key": "DJANGO_ADMIN_PASSWORD", "value": "${DJANGO_ADMIN_PASSWORD}" },
+        { "key": "DJANGO_ADMIN_EMAIL", "value": "${DJANGO_ADMIN_EMAIL}" },
+        { "key": "DISABLE_REGISTRATION", "value": "${DISABLE_REGISTRATION}" },
+        { "key": "TZ", "value": "${TZ}" }
+      ],
+      "volumes": [
+        {
+          "hostPath": "${APP_DATA_DIR}/data/media",
+          "containerPath": "/code/media/"
+        }
+      ]
+    }
+  ]
+}
