@@ -1,0 +1,93 @@
+{
+  "$schema": "../app-info-schema.json",
+  "name": "Wanderer",
+  "id": "wanderer",
+  "available": true,
+  "short_desc": "Self-hosted trail catalogue with GPX upload, route planning, ActivityPub federation",
+  "author": "open-wanderer",
+  "port": 3000,
+  "categories": [
+    "utilities",
+    "data"
+  ],
+  "description": "Wanderer is an open-source, self-hosted trail database for organizing, planning, and sharing GPS tracks. Features: GPX/KML/FIT upload, full-text & map-based search, Valhalla routing for route planning, elevation profiles, summit logs, lists, photo galleries, waypoints, ActivityPub federation (follow explorers across instances), mobile apps for iOS/Android, plugin system (Strava, Komoot, Hammerhead integrations as WASM plugins). Built with SvelteKit + PocketBase + Meilisearch.",
+  "tipi_version": 1,
+  "version": "v0.20.0",
+  "source": "https://github.com/open-wanderer/wanderer",
+  "website": "https://wanderer.to",
+  "logo": "metadata/logo.png",
+  "exposable": true,
+  "supported_architectures": [
+    "arm64",
+    "amd64"
+  ],
+  "created_at": 1755302400000,
+  "updated_at": 1755302400000,
+  "dynamic_config": true,
+  "form_fields": [
+    {
+      "type": "password",
+      "label": "Meilisearch Master Key",
+      "hint": "Encryption key for Meilisearch (generate a strong random string)",
+      "required": true,
+      "env_variable": "MEILI_MASTER_KEY",
+      "default": "changeme-meili-master-key-32chars"
+    },
+    {
+      "type": "password",
+      "label": "PocketBase Encryption Key",
+      "hint": "32-character encryption key for PocketBase database",
+      "required": true,
+      "env_variable": "POCKETBASE_ENCRYPTION_KEY",
+      "default": "changeme-pb-encryption-key-32chr"
+    },
+    {
+      "type": "text",
+      "label": "Origin URL",
+      "hint": "Public URL for this Wanderer instance (e.g., https://wanderer.yourdomain.com)",
+      "required": true,
+      "env_variable": "ORIGIN",
+      "default": "http://localhost:3000"
+    },
+    {
+      "type": "text",
+      "label": "Host Port",
+      "hint": "External port to expose the web UI on",
+      "required": true,
+      "env_variable": "HOST_PORT",
+      "default": "3000"
+    },
+    {
+      "type": "boolean",
+      "label": "Disable Signup",
+      "hint": "Disable new user registration (recommended for private instances)",
+      "required": false,
+      "env_variable": "PUBLIC_DISABLE_SIGNUP",
+      "default": "false"
+    },
+    {
+      "type": "text",
+      "label": "Overpass API URL",
+      "hint": "Overpass API endpoint for OSM data",
+      "required": false,
+      "env_variable": "OVERPASS_API_URL",
+      "default": "https://overpass-api.de"
+    },
+    {
+      "type": "text",
+      "label": "Valhalla Routing URL",
+      "hint": "Valhalla routing engine URL (use public or self-hosted)",
+      "required": false,
+      "env_variable": "VALHALLA_URL",
+      "default": "https://valhalla1.openstreetmap.de"
+    },
+    {
+      "type": "text",
+      "label": "Nominatim Geocoding URL",
+      "hint": "Nominatim geocoding service URL",
+      "required": false,
+      "env_variable": "NOMINATIM_URL",
+      "default": "https://nominatim.openstreetmap.org"
+    }
+  ]
+}

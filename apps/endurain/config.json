@@ -1,0 +1,93 @@
+{
+  "$schema": "../app-info-schema.json",
+  "name": "Endurain",
+  "id": "endurain",
+  "available": true,
+  "short_desc": "Self-hosted fitness tracking with Strava/Garmin sync, gear tracking, multi-user",
+  "author": "endurain-project",
+  "port": 8080,
+  "categories": [
+    "utilities",
+    "data"
+  ],
+  "description": "Endurain is a self-hosted fitness tracking service for athletes who want full control over their data. Features: activity import (GPX/TCX/FIT), Strava & Garmin Connect sync, gear tracking with component wear, gear defaults per activity type, multi-user with admin/user roles, follower feeds, goals, weight/steps/sleep logging, MFA TOTP, SSO (OIDC/SAML), email notifications via Apprise, multi-language, metric/imperial units, dark/light theme. Built with Vue 3 + FastAPI + PostgreSQL + Redis.",
+  "tipi_version": 1,
+  "version": "v0.17.7",
+  "source": "https://github.com/endurain-project/endurain",
+  "website": "https://docs.endurain.com",
+  "logo": "metadata/logo.png",
+  "exposable": true,
+  "supported_architectures": [
+    "arm64",
+    "amd64"
+  ],
+  "created_at": 1755302400000,
+  "updated_at": 1755302400000,
+  "dynamic_config": true,
+  "form_fields": [
+    {
+      "type": "password",
+      "label": "PostgreSQL Password",
+      "hint": "Password for the PostgreSQL database. Use a strong random string.",
+      "required": true,
+      "env_variable": "POSTGRES_PASSWORD",
+      "default": "changeme123"
+    },
+    {
+      "type": "password",
+      "label": "Redis Password",
+      "hint": "Password for Redis (rate-limiting, auth storage)",
+      "required": true,
+      "env_variable": "REDIS_PASSWORD",
+      "default": "changeme123"
+    },
+    {
+      "type": "password",
+      "label": "Secret Key",
+      "hint": "Secret key for JWT tokens and session security. Use a long random string.",
+      "required": true,
+      "env_variable": "SECRET_KEY",
+      "default": "changeme-secret-key-32chars-minimum"
+    },
+    {
+      "type": "text",
+      "label": "Site URL",
+      "hint": "Public URL for this Endurain instance (e.g., https://endurain.yourdomain.com)",
+      "required": true,
+      "env_variable": "SITE_URL",
+      "default": "http://localhost:8080"
+    },
+    {
+      "type": "text",
+      "label": "Host Port",
+      "hint": "External port to expose the app on",
+      "required": true,
+      "env_variable": "HOST_PORT",
+      "default": "8080"
+    },
+    {
+      "type": "text",
+      "label": "Timezone",
+      "hint": "Timezone setting (e.g., America/New_York, Europe/Lisbon)",
+      "required": false,
+      "env_variable": "TZ",
+      "default": "UTC"
+    },
+    {
+      "type": "boolean",
+      "label": "Disable Signup",
+      "hint": "Disable new user registration (requires admin approval)",
+      "required": false,
+      "env_variable": "DISABLE_SIGNUP",
+      "default": "false"
+    },
+    {
+      "type": "boolean",
+      "label": "Require Email Verification",
+      "hint": "Require email verification for new accounts",
+      "required": false,
+      "env_variable": "REQUIRE_EMAIL_VERIFICATION",
+      "default": "true"
+    }
+  ]
+}

@@ -1,0 +1,79 @@
+{
+  "$schema": "../dynamic-compose-schema.json",
+  "schemaVersion": 2,
+  "services": [
+    {
+      "name": "wanderer-search",
+      "image": "getmeili/meilisearch:v1.36.0",
+      "environment": [
+        { "key": "MEILI_MASTER_KEY", "value": "${MEILI_MASTER_KEY}" },
+        { "key": "MEILI_NO_ANALYTICS", "value": "true" }
+      ],
+      "volumes": [
+        {
+          "hostPath": "${APP_DATA_DIR}/data/meilisearch",
+          "containerPath": "/meili_data"
+        }
+      ],
+      "healthCheck": {
+        "test": "curl --fail http://localhost:7700/health || exit 1",
+        "interval": "15s",
+        "timeout": "10s",
+        "retries": 10
+      }
+    },
+    {
+      "name": "wanderer-db",
+      "image": "flomp/wanderer-db:v0.20.0",
+      "dependsOn": ["wanderer-search"],
+      "environment": [
+        { "key": "MEILI_URL", "value": "http://wanderer-search:7700" },
+        { "key": "MEILI_MASTER_KEY", "value": "${MEILI_MASTER_KEY}" },
+        { "key": "POCKETBASE_ENCRYPTION_KEY", "value": "${POCKETBASE_ENCRYPTION_KEY}" },
+        { "key": "ORIGIN", "value": "${ORIGIN}" }
+      ],
+      "volumes": [
+        {
+          "hostPath": "${APP_DATA_DIR}/data/pocketbase",
+          "containerPath": "/pb_data"
+        },
+        {
+          "hostPath": "${APP_DATA_DIR}/data/plugins",
+          "containerPath": "/data/plugins"
+        }
+      ],
+      "healthCheck": {
+        "test": "curl --fail http://localhost:8090/health || exit 1",
+        "interval": "15s",
+        "timeout": "10s",
+        "retries": 10
+      }
+    },
+    {
+      "name": "wanderer-web",
+      "image": "flomp/wanderer-web:v0.20.0",
+      "isMain": true,
+      "internalPort": "3000",
+      "dependsOn": ["wanderer-search", "wanderer-db"],
+      "environment": [
+        { "key": "MEILI_URL", "value": "http://wanderer-search:7700" },
+        { "key": "MEILI_MASTER_KEY", "value": "${MEILI_MASTER_KEY}" },
+        { "key": "ORIGIN", "value": "${ORIGIN}" },
+        { "key": "BODY_SIZE_LIMIT", "value": "Infinity" },
+        { "key": "PUBLIC_POCKETBASE_URL", "value": "http://wanderer-db:8090" },
+        { "key": "PUBLIC_DISABLE_SIGNUP", "value": "${PUBLIC_DISABLE_SIGNUP}" },
+        { "key": "UPLOAD_FOLDER", "value": "/app/uploads" },
+        { "key": "OVERPASS_API_URL", "value": "${OVERPASS_API_URL}" },
+        { "key": "VALHALLA_URL", "value": "${VALHALLA_URL}" },
+        { "key": "NOMINATIM_URL", "value": "${NOMINATIM_URL}" },
+        { "key": "PUBLIC_MAP_MAX_POLYLINES", "value": "100" }
+      ],
+      "volumes": [
+        {
+          "hostPath": "${APP_DATA_DIR}/data/uploads",
+          "containerPath": "/app/uploads"
+        }
+      ]
+    }
+  ]
+}
