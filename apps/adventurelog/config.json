@@ -1,0 +1,93 @@
+{
+  "$schema": "../app-info-schema.json",
+  "name": "AdventureLog",
+  "id": "adventurelog",
+  "available": true,
+  "short_desc": "Self-hostable travel tracker and trip planner with interactive maps and itineraries",
+  "author": "Sean Morley",
+  "port": 8015,
+  "categories": [
+    "utilities",
+    "data"
+  ],
+  "description": "AdventureLog is a modern open-source travel companion. Pin every place you've visited, build multi-day trip itineraries, mark countries and regions on an interactive world map, and collaborate with the people you travel with. Features locations & visits with photos/categories, interactive 2D/3D maps, trip planning with itineraries/checklists, world travel book with countries/regions/cities stats, trails & activities with GPX tracks, full-text search, MFA, social auth (Google, GitHub, Authelia), and integrations with Immich, Strava, Endurain, Wanderer, and Google Maps. Built with Django, SvelteKit, PostGIS, and Tailwind CSS.",
+  "tipi_version": 1,
+  "version": "v0.13.0",
+  "source": "https://github.com/seanmorley15/AdventureLog",
+  "website": "https://adventurelog.app",
+  "logo": "metadata/logo.png",
+  "exposable": true,
+  "supported_architectures": [
+    "arm64",
+    "amd64"
+  ],
+  "created_at": 1755302400000,
+  "updated_at": 1755302400000,
+  "dynamic_config": true,
+  "form_fields": [
+    {
+      "type": "password",
+      "label": "PostgreSQL Password",
+      "hint": "Password for the PostgreSQL database. Use a strong random string.",
+      "required": true,
+      "env_variable": "POSTGRES_PASSWORD",
+      "default": "changeme123"
+    },
+    {
+      "type": "text",
+      "label": "Site URL",
+      "hint": "Public URL for this AdventureLog instance (e.g., https://adventurelog.yourdomain.com)",
+      "required": true,
+      "env_variable": "SITE_URL",
+      "default": "http://localhost:8015"
+    },
+    {
+      "type": "text",
+      "label": "Host Port",
+      "hint": "External port to expose the app on",
+      "required": true,
+      "env_variable": "HOST_PORT",
+      "default": "8015"
+    },
+    {
+      "type": "text",
+      "label": "Timezone",
+      "hint": "Timezone setting (e.g., America/New_York, Europe/Berlin)",
+      "required": false,
+      "env_variable": "TZ",
+      "default": "UTC"
+    },
+    {
+      "type": "text",
+      "label": "Admin Username (first boot)",
+      "hint": "Initial admin username created on first run",
+      "required": false,
+      "env_variable": "DJANGO_ADMIN_USERNAME",
+      "default": "admin"
+    },
+    {
+      "type": "password",
+      "label": "Admin Password (first boot)",
+      "hint": "Initial admin password created on first run - CHANGE AFTER FIRST LOGIN",
+      "required": false,
+      "env_variable": "DJANGO_ADMIN_PASSWORD",
+      "default": "admin"
+    },
+    {
+      "type": "text",
+      "label": "Admin Email (first boot)",
+      "hint": "Initial admin email created on first run",
+      "required": false,
+      "env_variable": "DJANGO_ADMIN_EMAIL",
+      "default": "admin@example.com"
+    },
+    {
+      "type": "boolean",
+      "label": "Disable Registration",
+      "hint": "Disable new user registration (recommended for private instances)",
+      "required": false,
+      "env_variable": "DISABLE_REGISTRATION",
+      "default": "false"
+    }
+  ]
+}
