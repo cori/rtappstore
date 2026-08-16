@@ -1,6 +1,6 @@
 # App Index
 
-Auto-generated on 2026-08-16 02:25 UTC — do not edit manually.
+Auto-generated on 2026-08-16 04:46 UTC — do not edit manually.
 
 | App | Name | Version | Author | Categories | Port | Source Code | Container Image | Description |
 |-----|------|---------|--------|------------|------|-------------|-----------------|-------------|
@@ -12,9 +12,11 @@ Auto-generated on 2026-08-16 02:25 UTC — do not edit manually.
 | [fpv-inventory](https://github.com/cori/rtappstore/tree/main/apps/fpv-inventory) | FPV Inventory | sha-a33f4d9 | cori | utilities, data | 8385 | [https://github.com/FPVibe/fpv-inventory](https://github.com/FPVibe/fpv-inventory) | [ghcr.io](ghcr.io/fpvibe/fpv-inventory) | Self-hosted inventory tracker for FPV drone parts with status tracking and photo support |
 | [hermes-webui](https://github.com/cori/rtappstore/tree/main/apps/hermes-webui) | Hermes WebUI | 8d74166 | nesquena | ai, utilities | 8787 | [https://github.com/cori/hermes-webui](https://github.com/cori/hermes-webui) | [ghcr.io](ghcr.io/cori/hermes-webui) | Browser interface for Hermes Agent |
 | [partdb](https://github.com/cori/rtappstore/tree/main/apps/partdb) | Part-DB | latest | Part-DB | data, utilities | 8380 | [https://github.com/Part-DB/Part-DB-server](https://github.com/Part-DB/Part-DB-server) | [mariadb](https://hub.docker.com/r/mariadb) | Open Source Electronic Parts Inventory Management |
+| [print-gallery](https://github.com/cori/rtappstore/tree/main/apps/print-gallery) | 3D Print Timelapse Gallery | 1.0.0 | cori | media, utilities | 8851 | [code](local) · [website](https://github.com/cori/gallery-base) | [gallery-base](https://hub.docker.com/r/gallery-base) | 3D print timelapse history with G-code pairing — filter by filament, printer, outcome, tags |
 | [searxng](https://github.com/cori/rtappstore/tree/main/apps/searxng) | SearXNG | 2026.7.31-057a77168 | searxng | social | 8127 | [https://github.com/searxng/searxng](https://github.com/searxng/searxng) | [valkey/valkey](https://valkey/valkey) | Privacy-respecting, hackable metasearch engine |
 | [spoolman](https://github.com/cori/rtappstore/tree/main/apps/spoolman) | Spoolman | 0.23.0 | Donkie | utilities, data | 7912 | [https://github.com/Donkie/Spoolman](https://github.com/Donkie/Spoolman) | [ghcr.io](ghcr.io/donkie/spoolman) | Self-hosted 3D printer filament spool inventory management |
 | [token-dashboard](https://github.com/cori/rtappstore/tree/main/apps/token-dashboard) | Token Dashboard | sha-5c3a99c | cori | utilities, data | 8850 | [https://github.com/cori/token-dashboard](https://github.com/cori/token-dashboard) | [ghcr.io](ghcr.io/cori/token-dashboard) | Self-hosted dashboard for Hermes token-usage analytics with cost, latency, and model health |
+| [video-gallery](https://github.com/cori/rtappstore/tree/main/apps/video-gallery) | Video Gallery | 1.0.0 | cori | media | 8849 | [code](local) · [website](https://github.com/cori/gallery-base) | [gallery-base](https://hub.docker.com/r/gallery-base) | Self-hosted video gallery for FPV clips and Instagram downloads with tag filtering, captions, and external links |
 | [whoami](https://github.com/cori/rtappstore/tree/main/apps/whoami) | Whoami | v1.11.0 | traefik | utilities | 8382 | [https://github.com/traefik/whoami](https://github.com/traefik/whoami) | [traefik/whoami](https://traefik/whoami) | Tiny Go server that prints os information and HTTP request to output. |
 
 ---
