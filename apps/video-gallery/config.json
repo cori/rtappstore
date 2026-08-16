@@ -5,17 +5,22 @@
   "short_desc": "Self-hosted video gallery for FPV clips and Instagram downloads with tag filtering, captions, and external links",
   "author": "cori",
   "port": 8849,
-  "categories": ["media"],
+  "categories": [
+    "media"
+  ],
   "description": "Browsable video gallery that scans a directory for video files, extracts metadata via ffprobe, and serves a dark-themed HTML5 grid with inline players, search, sort, and tag/source-type filter pills. Reads SQLite metadata (gallery.db) for captions, Instagram source URLs, source type (saved/liked/viewed/youtube), and 958+ hashtags. Includes watch pages with OpenGraph/Twitter Card tags for share previews, clickable tag chips linking to filtered gallery, and an external links page grouped by domain.",
-  "tipi_version": 1,
+  "tipi_version": 2,
   "min_tipi_version": "4.5.0",
-  "version": "1.0.0",
+  "version": "sha-edf8c57",
   "source": "local",
   "website": "https://github.com/cori/gallery-base",
   "exposable": true,
-  "supported_architectures": ["amd64", "arm64"],
+  "supported_architectures": [
+    "amd64",
+    "arm64"
+  ],
   "created_at": 1786828800000,
-  "updated_at": 1786828800000,
+  "updated_at": 1786855622000,
   "dynamic_config": true,
   "form_fields": [
     {

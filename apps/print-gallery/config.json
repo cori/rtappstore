@@ -5,17 +5,23 @@
   "short_desc": "3D print timelapse history with G-code pairing — filter by filament, printer, outcome, tags",
   "author": "cori",
   "port": 8851,
-  "categories": ["media", "utilities"],
+  "categories": [
+    "media",
+    "utilities"
+  ],
   "description": "Browsable timelapse gallery for 3D prints. Each entry pairs a timelapse video (MP4) with its source G-code file. Reads metadata from manifest.json containing print details (filament, printer, outcome, duration, tags). Features filter pills by filament (PLA/PETG/PCTG), printer (plus4/k1), outcome (success/failed/cancelled), and custom tags. Watch page shows video player with poster frame, print metadata, G-code download link, and clickable tag chips linking to filtered gallery.",
-  "tipi_version": 1,
+  "tipi_version": 2,
   "min_tipi_version": "4.5.0",
-  "version": "1.0.0",
+  "version": "sha-edf8c57",
   "source": "local",
   "website": "https://github.com/cori/gallery-base",
   "exposable": true,
-  "supported_architectures": ["amd64", "arm64"],
+  "supported_architectures": [
+    "amd64",
+    "arm64"
+  ],
   "created_at": 1786828800000,
-  "updated_at": 1786828800000,
+  "updated_at": 1786855622000,
   "dynamic_config": true,
   "form_fields": [
     {
