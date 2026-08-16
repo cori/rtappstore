@@ -10,9 +10,9 @@
     "utilities"
   ],
   "description": "Browsable timelapse gallery for 3D prints. Each entry pairs a timelapse video (MP4) with its source G-code file. Reads metadata from manifest.json containing print details (filament, printer, outcome, duration, tags). Features filter pills by filament (PLA/PETG/PCTG), printer (plus4/k1), outcome (success/failed/cancelled), and custom tags. Watch page shows video player with poster frame, print metadata, G-code download link, and clickable tag chips linking to filtered gallery.",
-  "tipi_version": 2,
+  "tipi_version": 3,
   "min_tipi_version": "4.5.0",
-  "version": "sha-edf8c57",
+  "version": "sha-9f28dcc",
   "source": "local",
   "website": "https://github.com/cori/gallery-base",
   "exposable": true,
@@ -21,7 +21,7 @@
     "arm64"
   ],
   "created_at": 1786828800000,
-  "updated_at": 1786855622000,
+  "updated_at": 1786888995000,
   "dynamic_config": true,
   "form_fields": [
     {

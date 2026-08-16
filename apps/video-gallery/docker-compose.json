@@ -3,7 +3,7 @@
   "services": [
     {
       "name": "video-gallery",
-      "image": "ghcr.io/cori/gallery-base:sha-edf8c57",
+      "image": "ghcr.io/cori/gallery-base:sha-9f28dcc",
       "isMain": true,
       "environment": [
         {
