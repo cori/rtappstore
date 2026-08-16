@@ -74,14 +74,6 @@
       "default": "UTC"
     },
     {
-      "type": "text",
-      "label": "Local Data Path",
-      "hint": "Host path for persistent data (postgres, redis, backend data/logs)",
-      "required": false,
-      "env_variable": "LOCAL_PATH",
-      "default": "/var/opt/endurain"
-    },
-    {
       "type": "boolean",
       "label": "Disable Signup",
       "hint": "Disable new user registration (requires admin approval)",

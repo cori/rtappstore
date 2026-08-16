@@ -12,7 +12,7 @@
       "volumes": [
         {
           "hostPath": "${APP_DATA_DIR}/data/meilisearch",
-          "containerPath": "/meili_data/data.ms"
+          "containerPath": "/meili_data"
         }
       ],
       "healthCheck": {
@@ -24,7 +24,7 @@
     },
     {
       "name": "wanderer-db",
-      "image": "flomp/wanderer-db",
+      "image": "flomp/wanderer-db:v0.20.0",
       "dependsOn": ["wanderer-search"],
       "environment": [
         { "key": "MEILI_URL", "value": "http://wanderer-search:7700" },
