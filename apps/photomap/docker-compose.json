@@ -3,7 +3,7 @@
   "services": [
     {
       "name": "photomap",
-      "image": "ghcr.io/cori/photomap:1.0.1",
+      "image": "ghcr.io/cori/photomap:1.1.0",
       "isMain": true,
       "environment": [
         { "key": "NODE_ENV", "value": "production" },
