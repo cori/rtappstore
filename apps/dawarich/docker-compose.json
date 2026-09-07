@@ -61,7 +61,7 @@
         { "key": "DATABASE_PASSWORD", "value": "${DATABASE_PASSWORD}" },
         { "key": "DATABASE_NAME", "value": "dawarich" },
         { "key": "APPLICATION_HOSTS", "value": "${APPLICATION_HOSTS}" },
-        { "key": "APPLICATION_PROTOCOL", "value": "https" },
+        { "key": "APPLICATION_PROTOCOL", "value": "http" },
         { "key": "SECRET_KEY_BASE", "value": "${SECRET_KEY_BASE}" },
         { "key": "RAILS_LOG_TO_STDOUT", "value": "true" },
         { "key": "SELF_HOSTED", "value": "true" },
