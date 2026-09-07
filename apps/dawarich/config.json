@@ -1,0 +1,62 @@
+{
+  "$schema": "../app-info-schema.json",
+  "name": "Dawarich",
+  "id": "dawarich",
+  "available": true,
+  "short_desc": "Self-hosted Google Timeline alternative: GPS tracking, trips, visits, stats",
+  "author": "Freika",
+  "port": 8860,
+  "categories": [
+    "data",
+    "utilities"
+  ],
+  "description": "Dawarich is a self-hosted alternative to Google Timeline (Google Location History). Feed it location data from the official Dawarich mobile apps, OwnTracks, Overland, GPSLogger or PhoneTrack, and it reconstructs your travel history: trips and routes, visits, countries and cities, distance and time stats, heatmaps without the sun map, and a Map v2 timeline. It can import a Google Takeout export to backfill historical data, attaches GPS positions to photos from Immich/PhotoPrism/Google Photos, and ships automatic GPS noise filtering (unrealistic speeds, altitudes and sudden jumps) with configurable thresholds and track recalculation. All data stays on your own hardware.",
+  "tipi_version": 1,
+  "min_tipi_version": "4.5.0",
+  "version": "1.14.4",
+  "source": "https://github.com/Freika/dawarich",
+  "website": "https://dawarich.app",
+  "logo": "metadata/logo.jpg",
+  "exposable": true,
+  "supported_architectures": [
+    "amd64",
+    "arm64"
+  ],
+  "created_at": 1788812386142,
+  "updated_at": 1788812386142,
+  "dynamic_config": true,
+  "form_fields": [
+    {
+      "type": "password",
+      "label": "Database Password",
+      "hint": "Password for the Postgres database (generate a strong random string, e.g. openssl rand -hex 16)",
+      "required": true,
+      "env_variable": "DATABASE_PASSWORD",
+      "default": "changeme-dawarich-db-password"
+    },
+    {
+      "type": "password",
+      "label": "Secret Key Base",
+      "hint": "Rails secret key (generate with: openssl rand -hex 64)",
+      "required": true,
+      "env_variable": "SECRET_KEY_BASE",
+      "default": "changeme-secret-key-base"
+    },
+    {
+      "type": "text",
+      "label": "Application Hosts",
+      "hint": "Comma-separated hostnames Dawarich should accept (include your app domain)",
+      "required": true,
+      "env_variable": "APPLICATION_HOSTS",
+      "default": "localhost,::1,127.0.0.1,dawarich.407.lol"
+    },
+    {
+      "type": "text",
+      "label": "Timezone",
+      "hint": "Timezone used for dates and stats (e.g. America/Chicago, Europe/London)",
+      "required": false,
+      "env_variable": "TIME_ZONE",
+      "default": "America/Chicago"
+    }
+  ]
+}
