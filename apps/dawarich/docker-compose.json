@@ -1,0 +1,143 @@
+{
+  "$schema": "../dynamic-compose-schema.json",
+  "schemaVersion": 2,
+  "services": [
+    {
+      "name": "dawarich-redis",
+      "image": "redis:7.4-alpine",
+      "command": ["redis-server", "--save", "900", "1", "--save", "300", "10", "--appendonly", "no"],
+      "volumes": [
+        {
+          "hostPath": "${APP_DATA_DIR}/redis",
+          "containerPath": "/data"
+        }
+      ],
+      "healthCheck": {
+        "test": "redis-cli --raw incr ping",
+        "interval": "10s",
+        "timeout": "10s",
+        "retries": 5
+      }
+    },
+    {
+      "name": "dawarich-db",
+      "image": "postgis/postgis:17-3.5-alpine",
+      "environment": [
+        { "key": "POSTGRES_USER", "value": "postgres" },
+        { "key": "POSTGRES_PASSWORD", "value": "${DATABASE_PASSWORD}" },
+        { "key": "POSTGRES_DB", "value": "dawarich" }
+      ],
+      "volumes": [
+        {
+          "hostPath": "${APP_DATA_DIR}/postgres",
+          "containerPath": "/var/lib/postgresql/data"
+        },
+        {
+          "hostPath": "${APP_DATA_DIR}/shared",
+          "containerPath": "/var/shared"
+        }
+      ],
+      "healthCheck": {
+        "test": "pg_isready -U postgres -d dawarich",
+        "interval": "10s",
+        "timeout": "10s",
+        "retries": 5
+      }
+    },
+    {
+      "name": "dawarich-app",
+      "image": "freikin/dawarich:1.14.4",
+      "isMain": true,
+      "internalPort": "3000",
+      "entrypoint": ["web-entrypoint.sh"],
+      "command": ["bin/rails", "server", "-p", "3000", "-b", "::"],
+      "dependsOn": ["dawarich-redis", "dawarich-db"],
+      "environment": [
+        { "key": "RAILS_ENV", "value": "production" },
+        { "key": "REDIS_URL", "value": "redis://dawarich-redis:6379" },
+        { "key": "DATABASE_HOST", "value": "dawarich-db" },
+        { "key": "DATABASE_PORT", "value": "5432" },
+        { "key": "DATABASE_USERNAME", "value": "postgres" },
+        { "key": "DATABASE_PASSWORD", "value": "${DATABASE_PASSWORD}" },
+        { "key": "DATABASE_NAME", "value": "dawarich" },
+        { "key": "APPLICATION_HOSTS", "value": "${APPLICATION_HOSTS}" },
+        { "key": "APPLICATION_PROTOCOL", "value": "https" },
+        { "key": "SECRET_KEY_BASE", "value": "${SECRET_KEY_BASE}" },
+        { "key": "RAILS_LOG_TO_STDOUT", "value": "true" },
+        { "key": "SELF_HOSTED", "value": "true" },
+        { "key": "STORE_GEODATA", "value": "true" },
+        { "key": "WEB_CONCURRENCY", "value": "1" },
+        { "key": "TIME_ZONE", "value": "${TIME_ZONE}" },
+        { "key": "PROMETHEUS_EXPORTER_ENABLED", "value": "false" }
+      ],
+      "volumes": [
+        {
+          "hostPath": "${APP_DATA_DIR}/public",
+          "containerPath": "/var/app/public"
+        },
+        {
+          "hostPath": "${APP_DATA_DIR}/watched",
+          "containerPath": "/var/app/tmp/imports/watched"
+        },
+        {
+          "hostPath": "${APP_DATA_DIR}/storage",
+          "containerPath": "/var/app/storage"
+        },
+        {
+          "hostPath": "${APP_DATA_DIR}/postgres",
+          "containerPath": "/dawarich_db_data"
+        }
+      ],
+      "healthCheck": {
+        "test": "wget -qO - http://127.0.0.1:3000/api/v1/health | grep -q '\"status\"\\s*:\\s*\"ok\"'",
+        "interval": "10s",
+        "timeout": "10s",
+        "retries": 30
+      }
+    },
+    {
+      "name": "dawarich-sidekiq",
+      "image": "freikin/dawarich:1.14.4",
+      "entrypoint": ["sidekiq-entrypoint.sh"],
+      "command": ["sidekiq"],
+      "dependsOn": ["dawarich-redis", "dawarich-db", "dawarich-app"],
+      "environment": [
+        { "key": "RAILS_ENV", "value": "production" },
+        { "key": "REDIS_URL", "value": "redis://dawarich-redis:6379" },
+        { "key": "DATABASE_HOST", "value": "dawarich-db" },
+        { "key": "DATABASE_PORT", "value": "5432" },
+        { "key": "DATABASE_USERNAME", "value": "postgres" },
+        { "key": "DATABASE_PASSWORD", "value": "${DATABASE_PASSWORD}" },
+        { "key": "DATABASE_NAME", "value": "dawarich" },
+        { "key": "APPLICATION_HOSTS", "value": "${APPLICATION_HOSTS}" },
+        { "key": "SECRET_KEY_BASE", "value": "${SECRET_KEY_BASE}" },
+        { "key": "RAILS_LOG_TO_STDOUT", "value": "true" },
+        { "key": "SELF_HOSTED", "value": "true" },
+        { "key": "STORE_GEODATA", "value": "true" },
+        { "key": "BACKGROUND_PROCESSING_CONCURRENCY", "value": "3" },
+        { "key": "TIME_ZONE", "value": "${TIME_ZONE}" },
+        { "key": "PROMETHEUS_EXPORTER_ENABLED", "value": "false" }
+      ],
+      "volumes": [
+        {
+          "hostPath": "${APP_DATA_DIR}/public",
+          "containerPath": "/var/app/public"
+        },
+        {
+          "hostPath": "${APP_DATA_DIR}/watched",
+          "containerPath": "/var/app/tmp/imports/watched"
+        },
+        {
+          "hostPath": "${APP_DATA_DIR}/storage",
+          "containerPath": "/var/app/storage"
+        }
+      ],
+      "healthCheck": {
+        "test": "pgrep -f sidekiq",
+        "interval": "10s",
+        "timeout": "10s",
+        "retries": 30
+      }
+    }
+  ]
+}
