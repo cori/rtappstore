@@ -27,20 +27,20 @@
   "dynamic_config": true,
   "form_fields": [
     {
-      "type": "password",
+      "type": "random",
       "label": "Database Password",
-      "hint": "Password for the Postgres database (generate a strong random string, e.g. openssl rand -hex 16)",
+      "hint": "Password for the Postgres database (auto-generated; refresh to regenerate)",
       "required": true,
       "env_variable": "DATABASE_PASSWORD",
-      "default": "changeme-dawarich-db-password"
+      "encoding": "hex"
     },
     {
-      "type": "password",
+      "type": "random",
       "label": "Secret Key Base",
-      "hint": "Rails secret key (generate with: openssl rand -hex 64)",
+      "hint": "Rails secret key (auto-generated; refresh to regenerate)",
       "required": true,
       "env_variable": "SECRET_KEY_BASE",
-      "default": "changeme-secret-key-base"
+      "encoding": "hex"
     },
     {
       "type": "text",
