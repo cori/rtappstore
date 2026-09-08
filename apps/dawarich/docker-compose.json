@@ -65,6 +65,7 @@
         { "key": "SECRET_KEY_BASE", "value": "${SECRET_KEY_BASE}" },
         { "key": "RAILS_LOG_TO_STDOUT", "value": "true" },
         { "key": "SELF_HOSTED", "value": "true" },
+        { "key": "ALLOW_EMAIL_PASSWORD_REGISTRATION", "value": "${ALLOW_EMAIL_PASSWORD_REGISTRATION}" },
         { "key": "STORE_GEODATA", "value": "true" },
         { "key": "WEB_CONCURRENCY", "value": "1" },
         { "key": "TIME_ZONE", "value": "${TIME_ZONE}" },
