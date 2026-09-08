@@ -43,6 +43,14 @@
       "encoding": "hex"
     },
     {
+      "type": "boolean",
+      "label": "Allow Email/Password Registration",
+      "hint": "Shows the sign-up form. Enable to create your first account, then disable to lock the instance down (Dawarich default: disabled)",
+      "required": false,
+      "env_variable": "ALLOW_EMAIL_PASSWORD_REGISTRATION",
+      "default": "true"
+    },
+    {
       "type": "text",
       "label": "Application Hosts",
       "hint": "Comma-separated hostnames Dawarich should accept (include your app domain)",
