@@ -1,0 +1,92 @@
+{
+  "$schema": "../app-info-schema.json",
+  "name": "Hermes Obsidian Bridge",
+  "id": "hermes-obsidian-bridge",
+  "available": true,
+  "short_desc": "OpenAI-compatible proxy in front of Hermes api_server with session continuity and vault RAG",
+  "author": "cori",
+  "port": 9120,
+  "categories": [
+    "ai",
+    "utilities"
+  ],
+  "description": "Thin OpenAI-compatible proxy in front of the Hermes api_server. Adds session continuity (X-Session-Id), vault RAG via the Obsidian Local REST API (X-Obsidian-Note-Path), and automatic cost routing between a cheap and strong model based on prompt length. Wire it into any OpenAI-compatible Obsidian plugin (Copilot for Obsidian, Text Generator, Local GPT) for in-note chat with the full Hermes agent. Image: forge.407.lol/cori/hermes-obsidian-bridge:sha-7139662d. Source: https://github.com/cori/hermes-obsidian-bridge.",
+  "tipi_version": 1,
+  "version": "sha-7139662d",
+  "source": "https://github.com/cori/hermes-obsidian-bridge",
+  "website": "https://github.com/cori/hermes-obsidian-bridge",
+  "exposable": true,
+  "supported_architectures": [
+    "arm64",
+    "amd64"
+  ],
+  "created_at": 1757610000000,
+  "updated_at": 1757610000000,
+  "dynamic_config": true,
+  "form_fields": [
+    {
+      "type": "password",
+      "label": "Hermes API Server Key",
+      "hint": "Bearer token for the Hermes api_server. Must match the API_SERVER_KEY on the gateway host. Required.",
+      "required": true,
+      "env_variable": "API_SERVER_KEY",
+      "default": ""
+    },
+    {
+      "type": "text",
+      "label": "Hermes api_server URL",
+      "hint": "Base URL of the Hermes api_server (e.g. http://192.168.1.10:8642). Used by the bridge for chat and model listing. host.docker.internal works for Docker Desktop; on Linux Runtipi, use the host IP.",
+      "required": false,
+      "env_variable": "HERMES_BASE_URL",
+      "default": "http://host.docker.internal:8642/v1"
+    },
+    {
+      "type": "text",
+      "label": "Obsidian Local REST API URL",
+      "hint": "Base URL of the Obsidian Local REST API plugin. Default 27123. On Tailscale setups, use the Mac's Tailscale IP.",
+      "required": false,
+      "env_variable": "OBSIDIAN_REST_URL",
+      "default": "http://host.docker.internal:27123"
+    },
+    {
+      "type": "password",
+      "label": "Obsidian Local REST API Key",
+      "hint": "API key from the Obsidian Local REST API plugin (Settings → Local REST API → API Key). Leave empty if the plugin is configured for no auth on a trusted network.",
+      "required": false,
+      "env_variable": "OBSIDIAN_REST_KEY",
+      "default": ""
+    },
+    {
+      "type": "text",
+      "label": "Cheap Model",
+      "hint": "Model id to route short prompts to. Default uses umans-flash to burn expiring credits.",
+      "required": false,
+      "env_variable": "CHEAP_MODEL",
+      "default": "umans-flash"
+    },
+    {
+      "type": "text",
+      "label": "Strong Model",
+      "hint": "Model id to route longer prompts to.",
+      "required": false,
+      "env_variable": "STRONG_MODEL",
+      "default": "minimax-m3"
+    },
+    {
+      "type": "number",
+      "label": "Cheap Model Char Threshold",
+      "hint": "Prompts shorter than this (in characters) go to CHEAP_MODEL. Set to a large number to disable cheap-routing entirely.",
+      "required": false,
+      "env_variable": "CHEAP_MODEL_CHAR_THRESHOLD",
+      "default": 500
+    },
+    {
+      "type": "text",
+      "label": "Enable Vault RAG",
+      "hint": "Set to 'true' to pre-fetch the current note + today's daily + this week's review from Obsidian and prepend as context. Set to 'false' to disable.",
+      "required": false,
+      "env_variable": "RAG_ENABLED",
+      "default": "true"
+    }
+  ]
+}
