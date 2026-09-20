@@ -44,8 +44,6 @@
     {
       "name": "inventree-server",
       "image": "inventree/inventree:1.5.5",
-      "isMain": true,
-      "internalPort": "8000",
       "dependsOn": [
         "inventree-db",
         "inventree-cache"
@@ -124,6 +122,26 @@
         "interval": "60s",
         "timeout": "10s",
         "retries": 3
+      }
+    },
+    {
+      "name": "inventree-proxy",
+      "image": "caddy:alpine",
+      "isMain": true,
+      "internalPort": "80",
+      "dependsOn": [
+        "inventree-server"
+      ],
+      "volumes": [
+        { "hostPath": "${APP_DATA_DIR}/Caddyfile", "containerPath": "/etc/caddy/Caddyfile" },
+        { "hostPath": "${APP_DATA_DIR}/data/static", "containerPath": "/var/www/static" },
+        { "hostPath": "${APP_DATA_DIR}/data/media", "containerPath": "/var/www/media" }
+      ],
+      "healthCheck": {
+        "test": "wget --spider -q http://127.0.0.1:80/",
+        "interval": "20s",
+        "timeout": "5s",
+        "retries": 10
       }
     }
   ]
