@@ -1,0 +1,39 @@
+:80 {
+	encode gzip
+
+	request_body {
+		max_size 100MB
+	}
+
+	# Health check endpoint
+	handle /api/system/health/* {
+		reverse_proxy inventree-server:8000
+	}
+
+	# Serve static files (JS, CSS, images)
+	handle_path /static/* {
+		header Allow GET,HEAD,OPTIONS
+		header Access-Control-Allow-Origin *
+		header Access-Control-Allow-Methods GET,HEAD,OPTIONS
+		header Access-Control-Allow-Headers Authorization,Content-Type,User-Agent,traceparent
+		root * /var/www/static
+		file_server
+	}
+
+	# Serve media files (user uploads) with auth
+	handle_path /media/* {
+		header Allow GET,HEAD,OPTIONS
+		header Access-Control-Allow-Origin *
+		header Access-Control-Allow-Methods GET,HEAD,OPTIONS
+		header Access-Control-Allow-Headers Authorization,Content-Type,User-Agent,traceparent
+		root * /var/www/media
+		file_server
+		header Content-Disposition attachment
+		forward_auth inventree-server:8000 {
+			uri /auth/
+		}
+	}
+
+	# All other requests go to the InvenTree Django server
+	reverse_proxy inventree-server:8000
+}
