@@ -19,6 +19,7 @@ So the browser reads the EXIF itself. Apple's CDN sends CORS headers and honours
 - **Filters** — by album and by date range, with a live thumbnail strip of what's in view.
 - **Honest about gaps** — photos with no GPS block (screenshots, scans, location services off) are listed separately rather than silently dropped.
 - **Other inputs** — drag and drop local photos (parsed in-browser, never uploaded), or paste direct image URLs.
+- **Mobile-friendly sidebar** — the panel slides out as an overlay on narrow screens with a hamburger toggle and backdrop dismiss; on shared links the sidebar auto-collapses so the map is front and centre.
 - **Shareable links** — the whole view lives in the URL: albums, map centre and zoom, basemap, date filter, and the open photo. **Share** copies a link that reopens exactly that view; **Copy link** in the photo viewer opens straight to one photo. The address bar tracks the view as you pan, so copying it by hand works too.
 
   ```
