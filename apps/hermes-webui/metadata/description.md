@@ -25,6 +25,17 @@ Chat messages route over HTTP to the configured gateway, but WebUI sidebars (ski
 
 Permissions: the directory must be readable by the UID that owns it on the host. The container auto-detects UID/GID from the mounted directory at startup.
 
+### Skills directory layout
+
+The WebUI enumerates skills from `<HERMES_HOME_HOST_PATH>/skills/` (i.e. `~/.hermes/skills/` on the host). Both `hermes-agent` and `hermes-webui` resolve this path via `get_hermes_home() / "skills"`, so the bind-mounted `skills/` directory must contain skill categories at its root, **not** inside a `skills/` subdirectory.
+
+Two requirements that have caused real breakage:
+
+- **`HERMES_HOME_HOST_PATH/skills/` must be a real directory**, not a symlink to a path outside the bind mount. The WebUI resolves the path inside the container, where paths outside the mount (e.g. symlinks pointing at `/home/youruser/code/hermes-skills/skills`) don't exist. Use a real directory; if you want to version-control your skills, initialize a git repo at `~/.hermes/` itself (the existing `.gitignore` already excludes caches, sessions, secrets, and runtime state).
+- **Do not place symlinks inside the bind-mounted `HERMES_HOME_HOST_PATH`** that point outside the mount. The WebUI's skill enumeration will follow them and fail when the target is unreachable from inside the container.
+
+If your existing skills live at a separate repo (e.g. `~/code/hermes-skills/`), restructure that repo so skill categories sit at the repo root and clone or move it to `~/.hermes/skills/`. The bind mount then makes the canonical hermes-home path real.
+
 ## Usage with Hermes Agent Mobile (iOS)
 
 1. Set a **Password** in the app settings above.
