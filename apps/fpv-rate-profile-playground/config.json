@@ -1,0 +1,21 @@
+{
+  "name": "FPV Rate Profile Playground",
+  "id": "fpv-rate-profile-playground",
+  "available": true,
+  "short_desc": "Visualize, compare, and share Betaflight Actual Rates profiles with a shareable URL API",
+  "author": "cori",
+  "port": 8386,
+  "categories": ["utilities"],
+  "description": "FPV Rate Profile Playground is a web-based tool for interactively configuring and comparing Betaflight Actual Rates profiles. Adjust roll, pitch, yaw, and throttle parameters with live graph updates, then generate a shareable URL to compare multiple profiles side-by-side. Includes a REST API so LLMs and scripts can POST profile data and receive a visualization URL in return. Import settings from Betaflight CLI dumps and export CLI commands to paste back into your FC.",
+  "tipi_version": 1,
+  "min_tipi_version": "4.5.0",
+  "version": "sha-afc4f58",
+  "source": "https://github.com/cori/fpv-rate-profile-playground",
+  "website": "https://github.com/cori/fpv-rate-profile-playground",
+  "exposable": true,
+  "supported_architectures": ["arm64", "amd64"],
+  "created_at": 1744934400000,
+  "updated_at": 1744934400000,
+  "dynamic_config": true,
+  "form_fields": []
+}
