@@ -1,0 +1,62 @@
+{
+  "$schema": "../app-info-schema.json",
+  "name": "Karakeep",
+  "id": "karakeep",
+  "available": true,
+  "short_desc": "Self-hostable bookmark/notes/images app with AI tagging and iOS + Android apps",
+  "author": "karakeep-app",
+  "port": 8643,
+  "categories": [
+    "utilities",
+    "ai"
+  ],
+  "description": "Karakeep (formerly Hoarder) is a self-hostable bookmark-everything app: save links, notes, images, and PDFs, with optional AI auto-tagging. Includes native iOS and Android apps that connect to your server, plus Chrome/Firefox/Safari extensions. Capture from the share sheet on iOS, tag and search later, keep historical notes on products you liked, restaurants worth returning to, etc.",
+  "tipi_version": 1,
+  "min_tipi_version": "4.5.0",
+  "version": "0.33.2",
+  "source": "https://github.com/karakeep-app/karakeep",
+  "website": "https://karakeep.app",
+  "exposable": true,
+  "dynamic_config": true,
+  "supported_architectures": [
+    "arm64",
+    "amd64"
+  ],
+  "created_at": 1726064280917,
+  "updated_at": 1726064280917,
+  "form_fields": [
+    {
+      "type": "random",
+      "label": "NextAuth Secret",
+      "min": 32,
+      "env_variable": "NEXTAUTH_SECRET"
+    },
+    {
+      "type": "random",
+      "label": "Meilisearch Master Key",
+      "min": 32,
+      "env_variable": "MEILI_MASTER_KEY"
+    },
+    {
+      "type": "text",
+      "label": "OpenAI API Key",
+      "required": false,
+      "env_variable": "OPENAI_API_KEY"
+    },
+    {
+      "type": "text",
+      "label": "Ollama Base URL",
+      "hint": "Optional: point at your local Ollama (e.g. http://100.126.40.64:11434) for local AI tagging. Leave blank to disable AI tagging or use OpenAI only.",
+      "required": false,
+      "env_variable": "OLLAMA_BASE_URL"
+    },
+    {
+      "type": "text",
+      "label": "Disable Signups",
+      "hint": "Set to 'true' after creating your account to block new registrations.",
+      "required": false,
+      "env_variable": "DISABLE_SIGNUPS",
+      "default": "false"
+    }
+  ]
+}

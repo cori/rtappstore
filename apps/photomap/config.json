@@ -10,9 +10,9 @@
     "utilities"
   ],
   "description": "photomap plots the photos of an iCloud shared album on a map. Apple's shared-album API returns no location data, but shared albums preserve the original EXIF — so the browser range-fetches just the first ~192KB of each photo straight from Apple's CDN, parses the GPS block, and drops pins as they resolve. Photos cluster by what would overlap on screen, so zooming pulls clusters apart into smaller piles and then individual photos; shots taken in the same spot fan out in place. Clicking a photo opens it full-screen with coordinates, altitude, heading on an inset map, speed, GPS accuracy, reverse-geocoded place name, camera, lens and exposure. The whole view lives in the URL, so Share copies a link that reopens the same map, filters and photo. Also accepts drag-and-dropped local photos and direct image URLs. No accounts, no telemetry, no server-side photo storage.",
-  "tipi_version": 3,
+  "tipi_version": 4,
   "min_tipi_version": "4.5.0",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "source": "https://github.com/cori/photomap",
   "website": "https://github.com/cori/photomap",
   "exposable": true,
@@ -21,7 +21,7 @@
     "amd64"
   ],
   "created_at": 1788220800000,
-  "updated_at": 1788362200354,
+  "updated_at": 1788542388914,
   "dynamic_config": true,
   "form_fields": [
     {

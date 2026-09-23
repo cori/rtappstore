@@ -1,0 +1,33 @@
+{
+  "schemaVersion": 2,
+  "services": [
+    {
+      "name": "hermes-obsidian-bridge",
+      "image": "forge.407.lol/cori/hermes-obsidian-bridge:sha-7139662d",
+      "isMain": true,
+      "internalPort": 9120,
+      "command": "python -m bridge",
+      "environment": [
+        { "key": "PORT", "value": "9120" },
+        { "key": "API_SERVER_KEY", "value": "${API_SERVER_KEY}" },
+        { "key": "HERMES_BASE_URL", "value": "${HERMES_BASE_URL}" },
+        { "key": "OBSIDIAN_REST_URL", "value": "${OBSIDIAN_REST_URL}" },
+        { "key": "OBSIDIAN_REST_KEY", "value": "${OBSIDIAN_REST_KEY}" },
+        { "key": "CHEAP_MODEL", "value": "${CHEAP_MODEL}" },
+        { "key": "STRONG_MODEL", "value": "${STRONG_MODEL}" },
+        { "key": "CHEAP_MODEL_CHAR_THRESHOLD", "value": "${CHEAP_MODEL_CHAR_THRESHOLD}" },
+        { "key": "RAG_ENABLED", "value": "${RAG_ENABLED}" },
+        { "key": "LOG_LEVEL", "value": "info" }
+      ],
+      "volumes": [
+        { "hostPath": "${APP_DATA_DIR}/data", "containerPath": "/data" }
+      ],
+      "healthCheck": {
+        "test": "python -c \"import urllib.request,sys; r=urllib.request.urlopen('http://127.0.0.1:9120/health', timeout=3); sys.exit(0 if r.status==200 else 1)\"",
+        "interval": "30s",
+        "timeout": "5s",
+        "retries": 3
+      }
+    }
+  ]
+}

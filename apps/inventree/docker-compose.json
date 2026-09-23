@@ -1,0 +1,148 @@
+{
+  "$schema": "../dynamic-compose-schema.json",
+  "schemaVersion": 2,
+  "services": [
+    {
+      "name": "inventree-db",
+      "image": "postgres:17",
+      "environment": [
+        { "key": "PGDATA", "value": "/var/lib/postgresql/data/pgdb" },
+        { "key": "POSTGRES_USER", "value": "inventree" },
+        { "key": "POSTGRES_PASSWORD", "value": "${INVENTREE_DB_PASSWORD}" },
+        { "key": "POSTGRES_DB", "value": "inventree" }
+      ],
+      "volumes": [
+        { "hostPath": "${APP_DATA_DIR}/pgdb", "containerPath": "/var/lib/postgresql/data" }
+      ],
+      "healthCheck": {
+        "test": "pg_isready -U inventree -d inventree",
+        "interval": "15s",
+        "timeout": "5s",
+        "retries": 10
+      }
+    },
+    {
+      "name": "inventree-cache",
+      "image": "redis:7-alpine",
+      "command": [
+        "redis-server",
+        "--save",
+        "",
+        "--appendonly",
+        "no"
+      ],
+      "volumes": [
+        { "hostPath": "${APP_DATA_DIR}/redis", "containerPath": "/data" }
+      ],
+      "healthCheck": {
+        "test": "redis-cli ping",
+        "interval": "15s",
+        "timeout": "5s",
+        "retries": 10
+      }
+    },
+    {
+      "name": "inventree-server",
+      "image": "inventree/inventree:1.5.5",
+      "dependsOn": [
+        "inventree-db",
+        "inventree-cache"
+      ],
+      "environment": [
+        { "key": "INVENTREE_DB_ENGINE", "value": "postgresql" },
+        { "key": "INVENTREE_DB_NAME", "value": "inventree" },
+        { "key": "INVENTREE_DB_HOST", "value": "inventree-db" },
+        { "key": "INVENTREE_DB_PORT", "value": "5432" },
+        { "key": "INVENTREE_DB_USER", "value": "inventree" },
+        { "key": "INVENTREE_DB_PASSWORD", "value": "${INVENTREE_DB_PASSWORD}" },
+        { "key": "INVENTREE_CACHE_ENABLED", "value": "True" },
+        { "key": "INVENTREE_CACHE_HOST", "value": "inventree-cache" },
+        { "key": "INVENTREE_CACHE_PORT", "value": "6379" },
+        { "key": "INVENTREE_SECRET_KEY", "value": "${INVENTREE_SECRET_KEY}" },
+        { "key": "INVENTREE_SITE_URL", "value": "${INVENTREE_SITE_URL}" },
+        { "key": "INVENTREE_WEB_PORT", "value": "8000" },
+        { "key": "INVENTREE_LOG_LEVEL", "value": "WARNING" },
+        { "key": "INVENTREE_PLUGINS_ENABLED", "value": "True" },
+        { "key": "INVENTREE_AUTO_UPDATE", "value": "True" },
+        { "key": "INVENTREE_ADMIN_USER", "value": "${INVENTREE_ADMIN_USER}" },
+        { "key": "INVENTREE_ADMIN_PASSWORD", "value": "${INVENTREE_ADMIN_PASSWORD}" },
+        { "key": "INVENTREE_ADMIN_EMAIL", "value": "${INVENTREE_ADMIN_EMAIL}" },
+        { "key": "INVENTREE_USE_X_FORWARDED_HOST", "value": "True" },
+        { "key": "INVENTREE_USE_X_FORWARDED_PORT", "value": "True" },
+        { "key": "INVENTREE_USE_X_FORWARDED_PROTO", "value": "True" },
+        { "key": "INVENTREE_GUNICORN_TIMEOUT", "value": "90" },
+        { "key": "TZ", "value": "${TZ}" }
+      ],
+      "volumes": [
+        { "hostPath": "${APP_DATA_DIR}/data", "containerPath": "/home/inventree/data" }
+      ],
+      "healthCheck": {
+        "test": "invoke server-health --address http://localhost:8000",
+        "interval": "20s",
+        "timeout": "5s",
+        "retries": 10
+      }
+    },
+    {
+      "name": "inventree-worker",
+      "image": "inventree/inventree:1.5.5",
+      "command": [
+        "invoke",
+        "worker"
+      ],
+      "dependsOn": [
+        "inventree-server"
+      ],
+      "environment": [
+        { "key": "INVENTREE_DB_ENGINE", "value": "postgresql" },
+        { "key": "INVENTREE_DB_NAME", "value": "inventree" },
+        { "key": "INVENTREE_DB_HOST", "value": "inventree-db" },
+        { "key": "INVENTREE_DB_PORT", "value": "5432" },
+        { "key": "INVENTREE_DB_USER", "value": "inventree" },
+        { "key": "INVENTREE_DB_PASSWORD", "value": "${INVENTREE_DB_PASSWORD}" },
+        { "key": "INVENTREE_CACHE_ENABLED", "value": "True" },
+        { "key": "INVENTREE_CACHE_HOST", "value": "inventree-cache" },
+        { "key": "INVENTREE_CACHE_PORT", "value": "6379" },
+        { "key": "INVENTREE_SECRET_KEY", "value": "${INVENTREE_SECRET_KEY}" },
+        { "key": "INVENTREE_SITE_URL", "value": "${INVENTREE_SITE_URL}" },
+        { "key": "INVENTREE_WEB_PORT", "value": "8000" },
+        { "key": "INVENTREE_LOG_LEVEL", "value": "WARNING" },
+        { "key": "INVENTREE_PLUGINS_ENABLED", "value": "True" },
+        { "key": "INVENTREE_AUTO_UPDATE", "value": "True" },
+        { "key": "INVENTREE_USE_X_FORWARDED_HOST", "value": "True" },
+        { "key": "INVENTREE_USE_X_FORWARDED_PORT", "value": "True" },
+        { "key": "INVENTREE_USE_X_FORWARDED_PROTO", "value": "True" },
+        { "key": "TZ", "value": "${TZ}" }
+      ],
+      "volumes": [
+        { "hostPath": "${APP_DATA_DIR}/data", "containerPath": "/home/inventree/data" }
+      ],
+      "healthCheck": {
+        "test": "invoke worker-health",
+        "interval": "60s",
+        "timeout": "10s",
+        "retries": 3
+      }
+    },
+    {
+      "name": "inventree-proxy",
+      "image": "caddy:alpine",
+      "isMain": true,
+      "internalPort": "80",
+      "dependsOn": [
+        "inventree-server"
+      ],
+      "volumes": [
+        { "hostPath": "${APP_DATA_DIR}/Caddyfile", "containerPath": "/etc/caddy/Caddyfile" },
+        { "hostPath": "${APP_DATA_DIR}/data/static", "containerPath": "/var/www/static" },
+        { "hostPath": "${APP_DATA_DIR}/data/media", "containerPath": "/var/www/media" }
+      ],
+      "healthCheck": {
+        "test": "wget --spider -q http://127.0.0.1:80/api/system/health/",
+        "interval": "20s",
+        "timeout": "5s",
+        "retries": 10
+      }
+    }
+  ]
+}
