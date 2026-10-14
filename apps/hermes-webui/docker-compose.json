@@ -3,7 +3,7 @@
   "services": [
     {
       "name": "hermes-webui",
-      "image": "ghcr.io/cori/hermes-webui:sha-9d24099",
+      "image": "ghcr.io/cori/hermes-webui:sha-2e12640",
       "isMain": true,
       "internalPort": "8787",
       "environment": [
