@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 2,
+  "$schema": "https://schemas.runtipi.io/v2/dynamic-compose.json",
+  "services": [
+    {
+      "name": "continuwuity",
+      "image": "forgejo.ellis.link/continuwuation/continuwuity:v26.7.2",
+      "isMain": true,
+      "internalPort": "8008",
+      "environment": [
+        { "key": "CONTINUWUITY_SERVER_NAME", "value": "${APP_DOMAIN}" },
+        { "key": "CONTINUWUITY_DATABASE_PATH", "value": "/var/lib/continuwuity/" },
+        { "key": "CONTINUWUITY_DATABASE_BACKEND", "value": "rocksdb" },
+        { "key": "CONTINUWUITY_ADDRESS", "value": "0.0.0.0" },
+        { "key": "CONTINUWUITY_PORT", "value": "8008" },
+        { "key": "CONTINUWUITY_LOG", "value": "${LOG:-warn,rocket=off,_=off,sled=off}" },
+        { "key": "CONTINUWUITY_MAX_REQUEST_SIZE", "value": "${MAX_REQUEST_SIZE:-20000000}" },
+        { "key": "CONTINUWUITY_ALLOW_REGISTRATION", "value": "${ALLOW_REGISTRATION:-false}" },
+        { "key": "CONTINUWUITY_REGISTRATION_TOKEN", "value": "${REGISTRATION_TOKEN}" },
+        { "key": "CONTINUWUITY_ALLOW_FEDERATION", "value": "${ALLOW_FEDERATION:-false}" },
+        { "key": "CONTINUWUITY_TRUSTED_SERVERS", "value": "${TRUSTED_SERVERS:-[]}" },
+        { "key": "CONTINUWUITY_WELL_KNOWN", "value": "{ server = \"${APP_DOMAIN}:443\", client = \"https://${APP_DOMAIN}\" }" },
+        { "key": "CONTINUWUITY_ALLOW_CHECK_FOR_UPDATES", "value": "false" },
+        { "key": "CONTINUWUITY_TURN_URIS", "value": "${TURN_URIS:-[]}" },
+        { "key": "CONTINUWUITY_TURN_SECRET", "value": "${TURN_SECRET:-}" }
+      ],
+      "volumes": [
+        {
+          "hostPath": "${APP_DATA_DIR}/data",
+          "containerPath": "/var/lib/continuwuity/"
+        }
+      ]
+    }
+  ]
+}
