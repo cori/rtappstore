@@ -1,0 +1,100 @@
+{
+  "$schema": "../dynamic-compose-schema.json",
+  "schemaVersion": 2,
+  "services": [
+    {
+      "name": "obico-redis",
+      "image": "redis:7.2-alpine",
+      "healthCheck": {
+        "test": "redis-cli ping",
+        "interval": "15s",
+        "timeout": "5s",
+        "retries": 10
+      }
+    },
+    {
+      "name": "obico-ml",
+      "image": "ghcr.io/gabe565/obico/ml-api:sha-7e02e29",
+      "command": "gunicorn --bind=0.0.0.0:3333 --workers=1 --access-logfile=- wsgi",
+      "environment": [
+        { "key": "DEBUG", "value": "True" },
+        { "key": "FLASK_APP", "value": "server.py" }
+      ],
+      "healthCheck": {
+        "test": "wget --no-verbose --tries=1 --spider http://127.0.0.1:3333/hc/",
+        "interval": "30s",
+        "timeout": "10s",
+        "retries": 10
+      }
+    },
+    {
+      "name": "obico-web",
+      "image": "ghcr.io/gabe565/obico/web:sha-7e02e29",
+      "isMain": true,
+      "internalPort": 3334,
+      "dependsOn": ["obico-redis", "obico-ml"],
+      "command": "sh -c 'python manage.py migrate && python manage.py collectstatic --noinput --link && exec python manage.py runserver --noreload 0.0.0.0:3334'",
+      "environment": [
+        { "key": "DEBUG", "value": "False" },
+        { "key": "DJANGO_SECRET_KEY", "value": "${DJANGO_SECRET_KEY}" },
+        { "key": "SITE_USES_HTTPS", "value": "True" },
+        { "key": "SITE_IS_PUBLIC", "value": "True" },
+        { "key": "CSRF_TRUSTED_ORIGINS", "value": "https://${SITE_DOMAIN}" },
+        { "key": "ACCOUNT_ALLOW_SIGN_UP", "value": "False" },
+        { "key": "WEBPACK_LOADER_ENABLED", "value": "False" },
+        { "key": "REDIS_URL", "value": "redis://obico-redis:6379" },
+        { "key": "DATABASE_URL", "value": "sqlite:////data/db.sqlite3" },
+        { "key": "INTERNAL_MEDIA_HOST", "value": "http://obico-web:3334" },
+        { "key": "ML_API_HOST", "value": "http://obico-ml:3333" },
+        { "key": "OCTOPRINT_TUNNEL_PORT_RANGE", "value": "0-0" },
+        { "key": "EMAIL_HOST", "value": "${EMAIL_HOST}" },
+        { "key": "EMAIL_PORT", "value": "${EMAIL_PORT}" },
+        { "key": "EMAIL_HOST_USER", "value": "${EMAIL_HOST_USER}" },
+        { "key": "EMAIL_HOST_PASSWORD", "value": "${EMAIL_HOST_PASSWORD}" },
+        { "key": "EMAIL_USE_TLS", "value": "True" },
+        { "key": "DEFAULT_FROM_EMAIL", "value": "${DEFAULT_FROM_EMAIL}" }
+      ],
+      "volumes": [
+        { "hostPath": "${APP_DATA_DIR}/data", "containerPath": "/data" },
+        { "hostPath": "${APP_DATA_DIR}/media", "containerPath": "/app/static_build/media" },
+        { "hostPath": "${APP_DATA_DIR}/static", "containerPath": "/app/static_build" }
+      ],
+      "healthCheck": {
+        "test": "wget --no-verbose --tries=1 --spider http://127.0.0.1:3334/hc/",
+        "interval": "30s",
+        "timeout": "10s",
+        "retries": 10
+      }
+    },
+    {
+      "name": "obico-tasks",
+      "image": "ghcr.io/gabe565/obico/web:sha-7e02e29",
+      "dependsOn": ["obico-web", "obico-redis", "obico-ml"],
+      "command": "celery --app=config worker --beat --loglevel=info --concurrency=2 --queues=realtime,celery --schedule=/tmp/celerybeat-schedule",
+      "environment": [
+        { "key": "DEBUG", "value": "False" },
+        { "key": "DJANGO_SECRET_KEY", "value": "${DJANGO_SECRET_KEY}" },
+        { "key": "SITE_USES_HTTPS", "value": "True" },
+        { "key": "SITE_IS_PUBLIC", "value": "True" },
+        { "key": "CSRF_TRUSTED_ORIGINS", "value": "https://${SITE_DOMAIN}" },
+        { "key": "ACCOUNT_ALLOW_SIGN_UP", "value": "False" },
+        { "key": "WEBPACK_LOADER_ENABLED", "value": "False" },
+        { "key": "REDIS_URL", "value": "redis://obico-redis:6379" },
+        { "key": "DATABASE_URL", "value": "sqlite:////data/db.sqlite3" },
+        { "key": "INTERNAL_MEDIA_HOST", "value": "http://obico-web:3334" },
+        { "key": "ML_API_HOST", "value": "http://obico-ml:3333" },
+        { "key": "OCTOPRINT_TUNNEL_PORT_RANGE", "value": "0-0" },
+        { "key": "EMAIL_HOST", "value": "${EMAIL_HOST}" },
+        { "key": "EMAIL_PORT", "value": "${EMAIL_PORT}" },
+        { "key": "EMAIL_HOST_USER", "value": "${EMAIL_HOST_USER}" },
+        { "key": "EMAIL_HOST_PASSWORD", "value": "${EMAIL_HOST_PASSWORD}" },
+        { "key": "EMAIL_USE_TLS", "value": "True" },
+        { "key": "DEFAULT_FROM_EMAIL", "value": "${DEFAULT_FROM_EMAIL}" }
+      ],
+      "volumes": [
+        { "hostPath": "${APP_DATA_DIR}/data", "containerPath": "/data" },
+        { "hostPath": "${APP_DATA_DIR}/media", "containerPath": "/app/static_build/media" }
+      ]
+    }
+  ]
+}

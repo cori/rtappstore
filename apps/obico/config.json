@@ -1,0 +1,77 @@
+{
+  "$schema": "../app-info-schema.json",
+  "name": "Obico",
+  "id": "obico",
+  "available": true,
+  "short_desc": "Self-hosted AI 3D printer remote management and failure detection",
+  "author": "Obico (prebuilt images by gabe565/docker-obico)",
+  "port": 3334,
+  "categories": ["utilities"],
+  "description": "Obico is an open-source platform for remotely monitoring and managing 3D printers, with machine-learning failure detection, timelapses, and a companion mobile app. This app wraps the official obico-server using prebuilt images from gabe565/docker-obico (which tracks the upstream release branch). Services: Django web UI + websocket server (port 3334), Celery task worker, ML API, and Redis (SQLite for the database). After install: add the Django site via django-admin or 'manage.py site --add <SITE_DOMAIN>', then link printers with Obico for Klipper (moonraker-obico) or Obico for OctoPrint. Form fields: SITE_DOMAIN (public hostname, used for CSRF_TRUSTED_ORIGINS and SITE_USES_HTTPS), DJANGO_SECRET_KEY (auto-generated), optional SMTP settings for email notifications.",
+  "tipi_version": 2,
+  "version": "release-7e02e29",
+  "source": "https://github.com/TheSpaghettiDetective/obico-server",
+  "website": "https://www.obico.io",
+  "exposable": true,
+  "supported_architectures": ["arm64", "amd64"],
+  "created_at": 1792984565078,
+  "updated_at": 1792984565078,
+  "dynamic_config": true,
+  "form_fields": [
+    {
+      "type": "text",
+      "label": "Site Domain",
+      "hint": "Public hostname of this Obico server (set as CSRF_TRUSTED_ORIGINS; SITE_USES_HTTPS=True). Must match the dashboard domain, e.g. obico.407.lol",
+      "required": true,
+      "env_variable": "SITE_DOMAIN",
+      "default": "obico.407.lol"
+    },
+    {
+      "type": "random",
+      "label": "Django Secret Key",
+      "hint": "Django secret key for cryptographic signing (auto-generated)",
+      "required": true,
+      "env_variable": "DJANGO_SECRET_KEY",
+      "encoding": "hex"
+    },
+    {
+      "type": "text",
+      "label": "SMTP Host",
+      "hint": "Optional. Mail server hostname for notification emails (leave blank to disable outbound email)",
+      "required": false,
+      "env_variable": "EMAIL_HOST",
+      "default": ""
+    },
+    {
+      "type": "number",
+      "label": "SMTP Port",
+      "hint": "Optional. Mail server port (587 with TLS is typical)",
+      "required": false,
+      "env_variable": "EMAIL_PORT",
+      "default": 587
+    },
+    {
+      "type": "text",
+      "label": "SMTP User",
+      "hint": "Optional. Mail account username",
+      "required": false,
+      "env_variable": "EMAIL_HOST_USER",
+      "default": ""
+    },
+    {
+      "type": "password",
+      "label": "SMTP Password",
+      "hint": "Optional. Mail account password",
+      "required": false,
+      "env_variable": "EMAIL_HOST_PASSWORD"
+    },
+    {
+      "type": "text",
+      "label": "From Email",
+      "hint": "Optional. Sender address for notification emails",
+      "required": false,
+      "env_variable": "DEFAULT_FROM_EMAIL",
+      "default": "changeme@example.com"
+    }
+  ]
+}
