@@ -1,6 +1,6 @@
 # App Index
 
-Auto-generated on 2026-10-22 14:17 UTC — do not edit manually.
+Auto-generated on 2026-10-26 03:43 UTC — do not edit manually.
 
 | App | Name | Version | Author | Categories | Port | Source Code | Container Image | Description |
 |-----|------|---------|--------|------------|------|-------------|-----------------|-------------|
@@ -17,6 +17,7 @@ Auto-generated on 2026-10-22 14:17 UTC — do not edit manually.
 | [hermes-webui](https://github.com/cori/rtappstore/tree/main/apps/hermes-webui) | Hermes WebUI | b425136 | nesquena | ai, utilities | 8787 | [https://github.com/cori/hermes-webui](https://github.com/cori/hermes-webui) | [ghcr.io](ghcr.io/cori/hermes-webui) | Browser interface for Hermes Agent |
 | [inventree](https://github.com/cori/rtappstore/tree/main/apps/inventree) | InvenTree | 1.5.5 | InvenTree | data, utilities | 80 | [code](https://github.com/inventree/InvenTree) · [website](https://inventree.org) | [postgres](https://hub.docker.com/r/postgres) | Open-source inventory management for parts, components, BOMs, and stock control |
 | [karakeep](https://github.com/cori/rtappstore/tree/main/apps/karakeep) | Karakeep | 0.33.2 | karakeep-app | utilities, ai | 8643 | [code](https://github.com/karakeep-app/karakeep) · [website](https://karakeep.app) | [ghcr.io](ghcr.io/karakeep-app/karakeep) | Self-hostable bookmark/notes/images app with AI tagging and iOS + Android apps |
+| [obico](https://github.com/cori/rtappstore/tree/main/apps/obico) | Obico | release-7e02e29 | Obico (prebuilt images by gabe565/docker-obico) | utilities | 3334 | [code](https://github.com/TheSpaghettiDetective/obico-server) · [website](https://www.obico.io) | [redis](https://hub.docker.com/r/redis) | Self-hosted AI 3D printer remote management and failure detection |
 | [partdb](https://github.com/cori/rtappstore/tree/main/apps/partdb) | Part-DB | latest | Part-DB | data, utilities | 8380 | [https://github.com/Part-DB/Part-DB-server](https://github.com/Part-DB/Part-DB-server) | [mariadb](https://hub.docker.com/r/mariadb) | Open Source Electronic Parts Inventory Management |
 | [photomap](https://github.com/cori/rtappstore/tree/main/apps/photomap) | photomap | 1.2.0 | cori | media, utilities | 8852 | [https://github.com/cori/photomap](https://github.com/cori/photomap) | [ghcr.io](ghcr.io/cori/photomap) | Map the photos in an iCloud shared album by reading their EXIF GPS data |
 | [print-gallery](https://github.com/cori/rtappstore/tree/main/apps/print-gallery) | 3D Print Timelapse Gallery | sha-9f28dcc | cori | media, utilities | 8851 | [code](local) · [website](https://github.com/cori/gallery-base) | [ghcr.io](ghcr.io/cori/gallery-base) | 3D print timelapse history with G-code pairing — filter by filament, printer, outcome, tags |
