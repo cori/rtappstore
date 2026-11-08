@@ -1,0 +1,24 @@
+{
+  "name": "Dopplerprint",
+  "id": "dopplerprint",
+  "author": "cori",
+  "available": true,
+  "port": 8875,
+  "categories": [
+    "utilities"
+  ],
+  "tipi_version": 1,
+  "version": "sha-919a26d",
+  "short_desc": "Geolocate audio from aircraft Doppler curves + ADS-B",
+  "description": "Web app for dopplerprint: drop a recording (WAV/MP3/FLAC/OGG/M4A, up to 1 GB) on the page, give the capture time (with UTC offset, or use the file's timestamp) and roughly where, and it matches the aircraft sounds' Doppler curves in the spectrogram against adsb.lol ADS-B archives and Open-Meteo weather to report where the recording was made — best location with an OSM link, a calibrated 90% region, mirror solutions, the aircraft matched to each pass, plus result.html map and GeoJSON/JSON downloads.\n\nData: each UTC day around the recording that is not cached downloads ~3.5 GB into the app's data dir (default cap 20 GB, --max-cache-gb); first search in a new window takes minutes. A --near search (10 km radius) is the normal mode; without --near it searches the whole contiguous US (15–20 min per hour of audio). The web UI is unauthenticated — keep the subdomain LAN/Tailnet-facing.\n\nImage is built from source at forge.407.lol and pinned by SHA. Renovate cannot track that registry, so version bumps are manual (bump version + tipi_version in config.json and the image tag in docker-compose.json).",
+  "source": "https://github.com/cori/dopplerprint",
+  "website": "https://github.com/Hexay/dopplerprint",
+  "exposable": true,
+  "supported_architectures": [
+    "amd64"
+  ],
+  "created_at": 1794106345019,
+  "updated_at": 1794106345019,
+  "dynamic_config": true,
+  "form_fields": []
+}
