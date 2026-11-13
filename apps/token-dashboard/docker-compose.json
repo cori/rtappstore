@@ -35,6 +35,16 @@
         {
           "hostPath": "${APP_DATA_DIR}/data",
           "containerPath": "/data"
+        },
+        {
+          "hostPath": "${HERMES_HOME_HOST_PATH}/token_calls.db",
+          "containerPath": "/data/token_calls.db",
+          "readOnly": true
+        },
+        {
+          "hostPath": "${HERMES_HOME_HOST_PATH}/rate_table.yaml",
+          "containerPath": "/data/rate_table.yaml",
+          "readOnly": true
         }
       ],
       "internalPort": "8000"
