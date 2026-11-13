@@ -56,6 +56,10 @@ The Runtipi compose mounts `${APP_DATA_DIR}/data` → `/data` (regenerated outpu
 
 If `token_calls.db` or `rate_table.yaml` are missing (empty **Hermes Home Host Path** in app settings), the regenerator logs errors and the dashboard serves stale output — set the path and update the app.
 
+Both source mounts are **read-only**: the container can never write to the live recorder DB or rate table; only its own output directory is writable.
+
+**Known caveat (single-file mount vs. SQLite journal):** the recorder DB uses `journal_mode=DELETE`, whose rollback journal (`token_calls.db-journal`) is created next to the DB on the host and is *not* visible through the single-file mount. If the recorder process dies mid-transaction, flushed-but-uncommitted pages can be visible to the container's reader for a brief window (until the next host-side DB open rolls the hot journal back). Consequences are bounded: the container only reads (it cannot corrupt anything or interfere with recovery), any phantom rows self-heal on the next Hermes API call, and the worst case is a single 5-minute regeneration cycle with inflated counts. A directory-level mount would expose the journal but would also expose the entire Hermes home (sessions, memory, credentials) to the container — a far worse trade.
+
 | Env var | Default | Purpose |
 |---|---|---|
 | `HERMES_HOME_HOST_PATH` | *(required, empty)* | Hermes home on this host; sources the two mounts above |
