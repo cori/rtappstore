@@ -1,6 +1,6 @@
 # Token Dashboard
 
-A self-hosted analytics dashboard for [Hermes](https://github.com/cori/hermes-agent) token usage. Reads the same `token_calls.db` that Hermes writes during agent turns, and renders per-provider cost, latency, peak-burn, error timelines, and a model-picker-watch panel.
+A self-hosted analytics dashboard for [Hermes](https://github.com/cori/hermes-agent) token usage. Reads the per-call `token_calls.db` written by the **token-recorder Hermes plugin** (subscribes to the stock `post_api_request` / `api_request_error` lifecycle hooks — no Hermes source modifications), and renders per-provider cost, latency, peak-burn, error timelines, and a model-picker-watch panel.
 
 ## What it shows
 
@@ -12,41 +12,53 @@ A self-hosted analytics dashboard for [Hermes](https://github.com/cori/hermes-ag
 - **Latency distribution** — p50 / p95 / max per provider+model
 - **Model Picker Watch panel** — the 9 candidate models the watcher tracks, with current verdict, drift events, and swap recommendations
 
+## Required configuration
+
+- **Hermes Home Host Path** (required, absolute path): the Hermes home directory on this
+  host. Two source files inside it are bind-mounted into the container:
+  - `<hermes-home>/token_calls.db` → `/data/token_calls.db` — the per-call recorder DB.
+    The `token-recorder` plugin writes it with `journal_mode=DELETE` (no WAL sidecars), so
+    the single-file bind mount always serves committed pages.
+  - `<hermes-home>/rate_table.yaml` → `/data/rate_table.yaml` — the pricing table the
+    dashboard derives costs from.
+- The plugin lives in `<hermes-home>/plugins/token-recorder/` on the Hermes host; install
+  and enable it in Hermes itself (`plugins.enabled` in Hermes config), then restart the
+  Hermes gateway. The dashboard does not need it on its own filesystem.
+
 ## Data flow
 
 ```
-LLM API → Hermes → token_capture.record_call() → ~/.hermes/token_calls.db
-                                                              ↓
-                                          bind-mounted into container at /data
-                                                              ↓
-                                          Container regenerator (every 5 min):
-                                            reads DB, writes /data/index.html
-                                                              ↓
-                                          HTTP server serves / on port 8000
-                                                              ↓
-                                          Traefik → https://dashboard.your-domain
+LLM API → Hermes gateway → token-recorder plugin (post_api_request / api_request_error)
+                            → <hermes-home>/token_calls.db (DELETE journal, per-insert commit)
+                                        ↓ bind-mounted into the container at /data
+                          Container regenerator (every 5 min):
+                            reads DB + rate_table.yaml, writes /data/index.html
+                                        ↓
+                          HTTP server serves /data/index.html on port 8000 (external 8850)
+                                        ↓
+                          Traefik → https://dashboard.<your-domain>
 ```
 
-No host cron. No copy steps. The container does everything.
+A host-side Hermes cron (`refresh-token-dashboard`, every 30 min) regenerates the same
+dashboard from the host DB and copies it over `/data/index.html` as a fallback in case the
+container regeneration loop fails; both paths read identical data, so they interleave
+harmlessly (the container's 5-min cadence wins between cron runs).
 
-## What's bind-mounted
+## Mounts and configuration
 
-The Runtipi compose file mounts `${APP_DATA_DIR}/data` (the per-install data dir) to `/data` in the container. The host-side `refresh-token-dashboard.sh` cron job (or equivalent) is no longer needed — the container regenerates on its own. The DB and rate table live on the host at the standard `~/.hermes/` paths.
-
-Required host-side files (bind-mounted via `${APP_DATA_DIR}/data`):
+The Runtipi compose mounts `${APP_DATA_DIR}/data` → `/data` (regenerated output lives here), plus two single-file mounts sourced from the configured Hermes home:
 
 | Container path | Host path | Purpose |
 |---|---|---|
-| `/data/token_calls.db` | `${APP_DATA_DIR}/data/token_calls.db` | The token-usage DB written by Hermes |
-| `/data/rate_table.yaml` | `${APP_DATA_DIR}/data/rate_table.yaml` | The pricing/rate table for cost computation |
-| `/data/cache/model-picker-watch.jsonl` | `${APP_DATA_DIR}/data/cache/model-picker-watch.jsonl` | Optional: the picker-watch event log |
+| `/data/token_calls.db` | `${HERMES_HOME_HOST_PATH}/token_calls.db` | Per-call recorder DB (written by the token-recorder plugin) |
+| `/data/rate_table.yaml` | `${HERMES_HOME_HOST_PATH}/rate_table.yaml` | Pricing/rate table for cost derivation |
+| `/data` (parent mount) | `${APP_DATA_DIR}/data` | Regenerated `index.html`; picker-watch jsonl if copied here |
 
-If `token_calls.db` or `rate_table.yaml` are missing, the dashboard will return an error — check the container logs.
-
-## Configuration
+If `token_calls.db` or `rate_table.yaml` are missing (empty **Hermes Home Host Path** in app settings), the regenerator logs errors and the dashboard serves stale output — set the path and update the app.
 
 | Env var | Default | Purpose |
 |---|---|---|
+| `HERMES_HOME_HOST_PATH` | *(required, empty)* | Hermes home on this host; sources the two mounts above |
 | `TZ` | `UTC` | Timezone for the dashboard timestamps |
 | `REFRESH_INTERVAL` | `300` | Seconds between regenerations |
 

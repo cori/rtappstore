@@ -37,11 +37,11 @@
           "containerPath": "/data"
         },
         {
-          "hostPath": "/home/cori/.hermes/token_calls.db",
+          "hostPath": "${HERMES_HOME_HOST_PATH}/token_calls.db",
           "containerPath": "/data/token_calls.db"
         },
         {
-          "hostPath": "/home/cori/.hermes/rate_table.yaml",
+          "hostPath": "${HERMES_HOME_HOST_PATH}/rate_table.yaml",
           "containerPath": "/data/rate_table.yaml"
         }
       ],
