@@ -35,6 +35,14 @@
         {
           "hostPath": "${APP_DATA_DIR}/data",
           "containerPath": "/data"
+        },
+        {
+          "hostPath": "/home/cori/.hermes/token_calls.db",
+          "containerPath": "/data/token_calls.db"
+        },
+        {
+          "hostPath": "/home/cori/.hermes/rate_table.yaml",
+          "containerPath": "/data/rate_table.yaml"
         }
       ],
       "internalPort": "8000"
