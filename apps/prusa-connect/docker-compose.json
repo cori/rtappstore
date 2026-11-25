@@ -1,0 +1,36 @@
+{
+  "$schema": "../dynamic-compose-schema.json",
+  "schemaVersion": 2,
+  "services": [
+    {
+      "name": "prusa-connect",
+      "image": "ghcr.io/prusa3d/prusa-connect:0.1.0-beta.2",
+      "isMain": true,
+      "internalPort": 8080,
+      "addPorts": [
+        {
+          "containerPort": 8080,
+          "hostPort": 8080,
+          "tcp": true
+        }
+      ],
+      "readOnly": true,
+      "capDrop": ["ALL"],
+      "securityOpt": ["no-new-privileges:true"],
+      "volumes": [
+        { "hostPath": "${APP_DATA_DIR}/config", "containerPath": "/config" },
+        { "hostPath": "${APP_DATA_DIR}/data", "containerPath": "/data" },
+        { "hostPath": "${APP_DATA_DIR}/files", "containerPath": "/files" },
+        { "hostPath": "${APP_DATA_DIR}/storage", "containerPath": "/storage" },
+        { "hostPath": "${APP_DATA_DIR}/tmp", "containerPath": "/tmp" }
+      ],
+      "healthCheck": {
+        "test": "/prusa_connect core healthcheck",
+        "interval": "30s",
+        "timeout": "5s",
+        "retries": 3,
+        "startPeriod": "30s"
+      }
+    }
+  ]
+}

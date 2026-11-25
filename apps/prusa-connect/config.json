@@ -1,0 +1,21 @@
+{
+  "$schema": "../app-info-schema.json",
+  "name": "Prusa Connect",
+  "id": "prusa-connect",
+  "available": true,
+  "short_desc": "Self-hosted Prusa Connect server: fleet view, print queue and remote control for your printers",
+  "author": "Prusa Research (community packaging)",
+  "port": 8080,
+  "categories": ["utilities"],
+  "description": "Prusa Connect Local is Prusa's self-hosted printer fleet server (beta, 0.x). It runs on your own network: printers dial this server directly, and you use the web app and API to watch, queue and manage prints across the fleet. No cloud account required. Supports Prusa printers natively (CORE One, MK4/S, MK3.9/3.5, XL, MINI, with firmware 6.x); other makers can be added via driver extensions (an example Moonraker/Klipper driver ships in the upstream repo). Print files, SQLite database and settings persist in the app data directory. The web UI is exposed via Traefik at the app domain; printers must reach the server directly on the published host port (8080) with a plain HTTP connection, configured via the printer's Prusa Connect settings (Settings -> Network -> Prusa Connect -> Load Settings). First launch prints a one-time setup code to the container log; open the web UI to complete setup. Data lives in the mounted volumes; back up the app data directory before upgrading (0.x releases can change config/API).",
+  "tipi_version": 2,
+  "version": "0.1.0-beta.2",
+  "source": "https://github.com/prusa3d/prusa-connect",
+  "website": "https://github.com/prusa3d/prusa-connect",
+  "exposable": true,
+  "supported_architectures": ["arm64", "amd64"],
+  "created_at": 1764134400000,
+  "updated_at": 1764134400000,
+  "dynamic_config": true,
+  "form_fields": []
+}
