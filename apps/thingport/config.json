@@ -1,0 +1,52 @@
+{
+  "$schema": "../app-info-schema.json",
+  "name": "Thingport",
+  "id": "thingport",
+  "available": true,
+  "short_desc": "Self-hosted 3D model library with OpenSCAD script customizer and MakerWorld/Printables/Thingiverse imports",
+  "author": "Tautvydas Deržinskas",
+  "port": 8861,
+  "categories": [
+    "utilities"
+  ],
+  "description": "Thingport is a self-hosted 3D model library with 3D previews, tags, collections, print profiles and versioning. It imports models and synced collections from MakerWorld, Printables, Thingiverse, MyMiniFactory and 19 more sites, normalizes MakerWorld 3MF files for Cura/PrusaSlicer, and ships built-in tools and generators — including an OpenSCAD **script customizer** that regenerates a model from its .scad source with sliders, dropdowns and text fields (a self-hosted equivalent of MakerWorld's Customizer). Optional AI features (descriptions, categorization, CAD studio) work with a local model or Claude and are disabled by default. First registered account becomes the admin.",
+  "tipi_version": 1,
+  "min_tipi_version": "4.5.0",
+  "version": "1.8.0",
+  "source": "https://github.com/TautvydasDerzinskas/Thingport",
+  "website": "https://www.thingport.net",
+  "logo": "metadata/logo.jpg",
+  "exposable": true,
+  "supported_architectures": [
+    "amd64"
+  ],
+  "created_at": 1795813283464,
+  "updated_at": 1795813283464,
+  "dynamic_config": true,
+  "form_fields": [
+    {
+      "type": "random",
+      "label": "Auth Secret",
+      "hint": "Signs login tokens (auto-generated; refresh to regenerate)",
+      "required": true,
+      "env_variable": "AUTH_SECRET",
+      "encoding": "hex"
+    },
+    {
+      "type": "random",
+      "label": "Database Password",
+      "hint": "Password for the Postgres database (auto-generated; refresh to regenerate)",
+      "required": true,
+      "env_variable": "POSTGRES_PASSWORD",
+      "encoding": "hex"
+    },
+    {
+      "type": "text",
+      "label": "Public URL",
+      "hint": "Canonical URL of the app, used for links in verification emails",
+      "required": true,
+      "env_variable": "PUBLIC_URL",
+      "default": "https://thingport.407.lol"
+    }
+  ]
+}

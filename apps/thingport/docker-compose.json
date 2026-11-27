@@ -1,0 +1,64 @@
+{
+  "$schema": "../dynamic-compose-schema.json",
+  "schemaVersion": 2,
+  "services": [
+    {
+      "name": "thingport",
+      "image": "ghcr.io/tautvydasderzinskas/thingport-frontend:1.8.0",
+      "isMain": true,
+      "internalPort": "80",
+      "dependsOn": ["thingport-backend"]
+    },
+    {
+      "name": "thingport-backend",
+      "image": "ghcr.io/tautvydasderzinskas/thingport-backend:1.8.0",
+      "dependsOn": ["thingport-db"],
+      "environment": [
+        { "key": "PUID", "value": "${PUID}" },
+        { "key": "PGID", "value": "${PGID}" },
+        { "key": "TZ", "value": "${TZ}" },
+        { "key": "AUTH_SECRET", "value": "${AUTH_SECRET}" },
+        { "key": "PUBLIC_URL", "value": "${PUBLIC_URL}" },
+        { "key": "FILE_STORAGE", "value": "/app/storage" },
+        { "key": "DATABASE_URL", "value": "postgresql://thingport:${POSTGRES_PASSWORD}@thingport-db:5432/thingport?schema=public" },
+        { "key": "FLARESOLVERR_URL", "value": "http://thingport-flaresolverr:8191/v1" },
+        { "key": "FLARESOLVERR_REQUIRE_HTTPS", "value": "false" }
+      ],
+      "volumes": [
+        {
+          "hostPath": "${APP_DATA_DIR}/storage",
+          "containerPath": "/app/storage"
+        }
+      ]
+    },
+    {
+      "name": "thingport-db",
+      "image": "postgres:16-alpine",
+      "environment": [
+        { "key": "POSTGRES_USER", "value": "thingport" },
+        { "key": "POSTGRES_PASSWORD", "value": "${POSTGRES_PASSWORD}" },
+        { "key": "POSTGRES_DB", "value": "thingport" }
+      ],
+      "volumes": [
+        {
+          "hostPath": "${APP_DATA_DIR}/db",
+          "containerPath": "/var/lib/postgresql/data"
+        }
+      ],
+      "healthCheck": {
+        "test": "pg_isready -U thingport",
+        "interval": "10s",
+        "timeout": "10s",
+        "retries": 30
+      }
+    },
+    {
+      "name": "thingport-flaresolverr",
+      "image": "ghcr.io/flaresolverr/flaresolverr:v3.5.2",
+      "environment": [
+        { "key": "LOG_LEVEL", "value": "info" },
+        { "key": "TZ", "value": "${TZ}" }
+      ]
+    }
+  ]
+}
