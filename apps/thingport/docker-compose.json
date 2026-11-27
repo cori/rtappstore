@@ -28,6 +28,10 @@
         {
           "hostPath": "${APP_DATA_DIR}/storage",
           "containerPath": "/app/storage"
+        },
+        {
+          "hostPath": "${APP_DATA_DIR}/consume",
+          "containerPath": "/app/consume"
         }
       ]
     },

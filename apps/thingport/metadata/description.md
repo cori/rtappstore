@@ -28,6 +28,10 @@ sharing included.
 - Images pinned to upstream release 1.8.0 (`ghcr.io/tautvydasderzinskas/thingport-*`),
   FlareSolverr v3.5.2, Postgres 16. Updates follow upstream releases.
 - Model files and uploads persist in the app's `storage` folder; the database in `db`.
+- A **consume folder** is mounted at `${APP_DATA_DIR}/consume`: anything copied in is
+  auto-imported and then removed ("copy, don't move") — ideal feeding ground for a git
+  sync of an OpenSCAD designs repo. Configure rules in Administration → Storage →
+  Consume Folder. The folder's host owner must match the backend's UID (1000).
 - SMTP is not configured by default — email verification/password-reset links are not
   sent until you add SMTP settings to the backend environment.
 - Docs: https://www.thingport.net/docs
