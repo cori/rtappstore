@@ -7,10 +7,10 @@
       "image": "ghcr.io/tautvydasderzinskas/thingport-frontend:1.8.0",
       "isMain": true,
       "internalPort": "80",
-      "dependsOn": ["thingport-backend"]
+      "dependsOn": ["backend"]
     },
     {
-      "name": "thingport-backend",
+      "name": "backend",
       "image": "ghcr.io/tautvydasderzinskas/thingport-backend:1.8.0",
       "dependsOn": ["thingport-db"],
       "environment": [
