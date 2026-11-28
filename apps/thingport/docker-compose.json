@@ -18,7 +18,7 @@
         { "key": "PGID", "value": "${PGID}" },
         { "key": "TZ", "value": "${TZ}" },
         { "key": "AUTH_SECRET", "value": "${AUTH_SECRET}" },
-        { "key": "PUBLIC_URL", "value": "${PUBLIC_URL}" },
+        { "key": "PUBLIC_URL", "value": "${APP_PROTOCOL:-http}://${APP_DOMAIN}" },
         { "key": "FILE_STORAGE", "value": "/app/storage" },
         { "key": "DATABASE_URL", "value": "postgresql://thingport:${POSTGRES_PASSWORD}@thingport-db:5432/thingport?schema=public" },
         { "key": "FLARESOLVERR_URL", "value": "http://thingport-flaresolverr:8191/v1" },

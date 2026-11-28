@@ -39,14 +39,6 @@
       "required": true,
       "env_variable": "POSTGRES_PASSWORD",
       "encoding": "hex"
-    },
-    {
-      "type": "text",
-      "label": "Public URL",
-      "hint": "Canonical URL of the app, used for links in verification emails",
-      "required": true,
-      "env_variable": "PUBLIC_URL",
-      "default": "https://thingport.407.lol"
     }
   ]
 }
